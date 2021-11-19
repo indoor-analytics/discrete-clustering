@@ -1,0 +1,11 @@
+*.log
+.DS_Store
+node_modules
+dist
+.idea
+/node_modules/
+/build/
+/lib/
+/dist/
+/docs/
+coverage
