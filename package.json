@@ -44,5 +44,8 @@
       "path": "dist/bundle.js",
       "limit": "20 KB"
     }
-  ]
+  ],
+  "dependencies": {
+    "@turf/bbox": "^6.5.0"
+  }
 }
