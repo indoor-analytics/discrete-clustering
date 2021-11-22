@@ -1,14 +1,11 @@
-import {featureCollection, FeatureCollection, Polygon} from "@turf/helpers";
+import {FeatureCollection, Polygon} from "@turf/helpers";
+import clone from "@turf/clone";
 
 export function colorCells (
     cells: FeatureCollection<Polygon, {weight: number}>
 ): FeatureCollection<Polygon, {weight: number}> {
     let localMaximum = 0;
-
-    // excluding cells that are not intersected by paths
-    const localCells = featureCollection(cells.features.filter((cell) => {
-        return cell.properties.weight !== undefined && cell.properties.weight > 0;
-    }));
+    const localCells = clone(cells);
 
     // looking for maximum weight
     for (const cell of localCells.features)

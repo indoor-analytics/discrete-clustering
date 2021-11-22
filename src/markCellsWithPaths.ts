@@ -1,4 +1,5 @@
-import {Feature, FeatureCollection, LineString, Polygon} from "@turf/helpers";
+import clone from "@turf/clone";
+import {Feature, featureCollection, FeatureCollection, LineString, Polygon} from "@turf/helpers";
 import lineIntersect from "@turf/line-intersect";
 
 export function markCellsWithPaths(
@@ -10,8 +11,10 @@ export function markCellsWithPaths(
     if (paths.length === 0)
         throw new RangeError('Paths array must not be empty.');
 
+    const localCells = clone(cells);
+
     for (const path of paths) {
-        for (const cell of cells.features) {
+        for (const cell of localCells.features) {
             if (lineIntersect(path, cell).features.length !== 0) {
                 if (cell.properties?.weight === undefined)
                     (cell as Feature<Polygon, {weight: number}>).properties.weight = 1;
@@ -21,5 +24,7 @@ export function markCellsWithPaths(
         }
     }
 
-    return cells;
+    return featureCollection(localCells.features.filter((cell: Feature<Polygon, {weight?: number}>) => {
+        return cell.properties.weight !== undefined && cell.properties.weight > 1;
+    }));
 }
