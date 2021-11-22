@@ -6,4 +6,10 @@ describe ('Get cells from area', () => {
         const cells = getCellsFromArea(trainStationZoneOfInterest);
         expect(cells.features.length).toBeGreaterThan(0);
     });
+
+    it ('should return more cells with an increased granularity', () => {
+        const cells = getCellsFromArea(trainStationZoneOfInterest, 10);
+        const cells2 = getCellsFromArea(trainStationZoneOfInterest, 20);
+        expect(cells2.features.length).toBeGreaterThan(cells.features.length);
+    });
 });
