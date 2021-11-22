@@ -25,15 +25,11 @@ describe('Mark cells with paths', () => {
         expect(markedCells.length).not.toEqual(0);
     });
 
-    it ('all cells should not have same weight', () => {
+    it ('should not produce cell with no weight', () => {
         const allCells = markCellsWithPaths(cells, paths);
-        const weightsMap: Record<number, number> = {};
         for (const cell of allCells.features) {
-            if (weightsMap[cell.properties?.weight] === undefined)
-                weightsMap[cell.properties?.weight] = 1;
-            else
-                weightsMap[cell.properties?.weight] += 1;
+            if (cell.properties?.weight === undefined)
+                throw new Error("Cell has no weight.");
         }
-        expect(Object.keys(weightsMap).length).not.toEqual(1);
     });
 });
