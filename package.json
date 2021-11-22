@@ -1,9 +1,9 @@
 {
-  "name": "typescript-boilerplate",
+  "name": "discrete-clustering",
   "version": "0.0.1",
-  "description": "Boilerplate for all TypeScript projects.",
+  "description": "Clusters a bunch of paths by space discretization.",
   "author": "Rémy Raes",
-  "repository": "https://github.com/indoor-analytics/typescript-boilerplate",
+  "repository": "https://github.com/indoor-analytics/discrete-clustering",
   "license": "MIT",
   "main": "./dist/bundle.js",
   "types": "./dist/index.d.ts",
