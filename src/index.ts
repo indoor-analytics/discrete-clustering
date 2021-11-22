@@ -9,6 +9,7 @@ export function discreteClustering(
     granularity: number // TODO implement within getCellsFromArea
 ): FeatureCollection {
     const zoneCells = getCellsFromArea(zoneOfInterest);
+    console.log(granularity);
     return markCellsWithPaths(zoneCells, paths);
 }
 
