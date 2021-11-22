@@ -9,4 +9,4 @@ dist
 /dist/
 /docs/
 coverage
-node.json
+output/
