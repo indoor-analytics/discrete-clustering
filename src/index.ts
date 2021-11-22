@@ -6,10 +6,9 @@ import { markCellsWithPaths } from "./markCellsWithPaths";
 export function discreteClustering(
     zoneOfInterest: Feature<Polygon>,
     paths: Feature<LineString>[],
-    granularity: number // TODO implement within getCellsFromArea
+    granularity: number
 ): FeatureCollection {
-    const zoneCells = getCellsFromArea(zoneOfInterest);
-    console.log(granularity);
+    const zoneCells = getCellsFromArea(zoneOfInterest, granularity);
     return markCellsWithPaths(zoneCells, paths);
 }
 
