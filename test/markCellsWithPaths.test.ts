@@ -4,7 +4,7 @@ import bbox from "@turf/bbox";
 import {markCellsWithPaths} from "../src/markCellsWithPaths";
 import {featureCollection, lineString} from "@turf/helpers";
 
-const cells = squareGrid(bbox(trainStationZoneOfInterest), 10);
+const cells = squareGrid(bbox(trainStationZoneOfInterest), 0.1);
 
 describe('Mark cells with paths', () => {
     it ('should throw with empty paths array', () => {
