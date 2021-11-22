@@ -7,5 +7,5 @@ export function getCellsFromArea(zoneOfInterest: Feature<Polygon>, granularity =
     const areaBbox = bbox(zoneOfInterest);
     const areaLength = length(zoneOfInterest);
     const cellSize = areaLength/granularity;
-    return squareGrid(areaBbox, cellSize, {"units": "kilometers"});
+    return squareGrid(areaBbox, cellSize, {units: "kilometers", mask: zoneOfInterest});
 }
