@@ -4,6 +4,7 @@ import length from "@turf/length";
 import squareGrid from "@turf/square-grid";
 import {Shape} from "./Shape";
 import triangleGrid from "@turf/triangle-grid";
+import hexGrid from "@turf/hex-grid";
 
 export function getCellsFromArea(zoneOfInterest: Feature<Polygon>, granularity = 42, shape: Shape = Shape.Square): FeatureCollection<Polygon> {
     const areaBbox = bbox(zoneOfInterest);
@@ -12,6 +13,8 @@ export function getCellsFromArea(zoneOfInterest: Feature<Polygon>, granularity =
     switch (shape) {
     case Shape.Triangle:
         return triangleGrid(areaBbox, cellSize, {mask: zoneOfInterest});
+    case Shape.Hexagon:
+        return hexGrid(areaBbox, cellSize, {mask: zoneOfInterest});
     default:
         return squareGrid(areaBbox, cellSize, {units: "kilometers", mask: zoneOfInterest});
     }
