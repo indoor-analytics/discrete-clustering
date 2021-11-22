@@ -2,7 +2,7 @@
 
 Clusters a bunch of paths by discretizing space with a given shape.
 
-| ![Paths to cluster](docs/paths_to_cluster.png) | ![Clustering result](docs/clustering_result.png) |
+| ![Paths to cluster](img/paths_to_cluster.png) | ![Clustering result](img/clustering_result.png) |
 |:--:|:--:|
 | *30 paths we want to cluster* | *hexagon clustering result* |
 
