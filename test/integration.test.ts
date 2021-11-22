@@ -8,7 +8,7 @@ describe('Integration', () => {
         const cells = discreteClustering(
             trainStationZoneOfInterest,
             getPaths(),
-            42
+            160
         );
         printCollectionToFile(cells);
     });
