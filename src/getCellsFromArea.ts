@@ -10,12 +10,16 @@ export function getCellsFromArea(zoneOfInterest: Feature<Polygon>, granularity =
     const areaBbox = bbox(zoneOfInterest);
     const areaLength = length(zoneOfInterest);
     const cellSize = areaLength/granularity;
+    const options = {mask: zoneOfInterest};
+
     switch (shape) {
     case Shape.Triangle:
-        return triangleGrid(areaBbox, cellSize, {mask: zoneOfInterest});
+        return triangleGrid(areaBbox, cellSize, options);
     case Shape.Hexagon:
-        return hexGrid(areaBbox, cellSize, {mask: zoneOfInterest});
+        return hexGrid(areaBbox, cellSize, options);
+    case Shape.Square:
+        return squareGrid(areaBbox, cellSize, options);
     default:
-        return squareGrid(areaBbox, cellSize, {units: "kilometers", mask: zoneOfInterest});
+        throw new RangeError('Cannot build cells with unknown shape.');
     }
 }
