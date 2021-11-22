@@ -24,4 +24,16 @@ describe('Mark cells with paths', () => {
         const markedCells = allCells.features.filter((cell) => cell.properties?.weight !== undefined);
         expect(markedCells.length).not.toEqual(0);
     });
+
+    it ('all cells should not have same weight', () => {
+        const allCells = markCellsWithPaths(cells, paths);
+        const weightsMap: Record<number, number> = {};
+        for (const cell of allCells.features) {
+            if (weightsMap[cell.properties?.weight] === undefined)
+                weightsMap[cell.properties?.weight] = 1;
+            else
+                weightsMap[cell.properties?.weight] += 1;
+        }
+        expect(Object.keys(weightsMap).length).not.toEqual(1);
+    });
 });
