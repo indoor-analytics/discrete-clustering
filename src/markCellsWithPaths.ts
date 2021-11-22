@@ -14,7 +14,7 @@ export function markCellsWithPaths(
         for (const cell of cells.features) {
             if (lineIntersect(path, cell) !== null) {
                 if (cell.properties?.weight === undefined)
-                    (cell as Feature<Polygon, {weight: number}>).properties.weight = 0;
+                    (cell as Feature<Polygon, {weight: number}>).properties.weight = 1;
                 else
                     cell.properties.weight += 1;
             }
