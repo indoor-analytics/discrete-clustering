@@ -22,7 +22,6 @@
   "devDependencies": {
     "@size-limit/preset-small-lib": "^5.0.4",
     "@size-limit/time": "^6.0.3",
-    "@turf/helpers": "^6.5.0",
     "@types/jest": "^26.0.21",
     "@types/node": "^15.0.1",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
@@ -47,6 +46,7 @@
   ],
   "dependencies": {
     "@turf/bbox": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
     "@turf/length": "^6.5.0",
     "@turf/square-grid": "^6.5.0"
   }
