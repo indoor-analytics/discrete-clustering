@@ -15,3 +15,15 @@ package-lock.json
 /tmp*
 /mnt/
 /package/
+
+# ignore the .ts (source) files
+*.ts
+# include the .d.ts (types) files
+!*.d.ts
+
+.editorconfig
+.eslintrc.js
+webpack.config.js
+tsconfig.json
+jest.config.js
+test
