@@ -12,7 +12,7 @@ import hexGrid from "@turf/hex-grid";
  * @param zoneOfInterest polygon to split into cells
  * @param granularity cell size
  * @param shape cell shape 
- * @returns 
+ * @returns an ensemble of cells representing input zone of interest
  */
 export function getCellsFromArea(zoneOfInterest: Feature<Polygon>, granularity = 42, shape: Shape = Shape.Square): FeatureCollection<Polygon> {
     const areaBbox = bbox(zoneOfInterest);
