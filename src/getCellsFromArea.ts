@@ -6,6 +6,14 @@ import {Shape} from "./Shape";
 import triangleGrid from "@turf/triangle-grid";
 import hexGrid from "@turf/hex-grid";
 
+/**
+ * Transforms an area into a grid of cells.
+ * 
+ * @param zoneOfInterest polygon to split into cells
+ * @param granularity cell size
+ * @param shape cell shape 
+ * @returns 
+ */
 export function getCellsFromArea(zoneOfInterest: Feature<Polygon>, granularity = 42, shape: Shape = Shape.Square): FeatureCollection<Polygon> {
     const areaBbox = bbox(zoneOfInterest);
     const areaLength = length(zoneOfInterest);
