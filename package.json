@@ -1,5 +1,5 @@
 {
-  "name": "discrete-clustering",
+  "name": "@indoor-analytics/discrete-clustering",
   "version": "0.0.1",
   "description": "Clusters a bunch of paths by space discretization.",
   "author": "Rémy Raes",
