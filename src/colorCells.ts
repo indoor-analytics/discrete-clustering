@@ -1,6 +1,15 @@
 import {FeatureCollection, Polygon} from "@turf/helpers";
 import clone from "@turf/clone";
 
+
+/**
+ * Attributes a fill-opacity value to each cell regarding their
+ * weight.
+ * The heavier the cell, the stronger its opacity (maximum being 1).
+ * 
+ * @param cells input cells to color
+ * @returns colored cells
+ */
 export function colorCells (
     cells: FeatureCollection<Polygon, {weight: number}>
 ): FeatureCollection<Polygon, {weight: number}> {
