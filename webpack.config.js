@@ -20,6 +20,10 @@ module.exports = {
         filename: 'bundle.js',
         // eslint-disable-next-line no-undef
         path: path.resolve(__dirname, 'dist'),
-        libraryTarget: "commonjs-module"
+        library: {
+            name: 'discreteClustering',
+            type: 'commonjs',
+            export: 'discreteClustering',
+        }
     },
 };
