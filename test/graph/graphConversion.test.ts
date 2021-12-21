@@ -9,6 +9,6 @@ describe('Graph conversion tests', () => {
             Shape.Hexagon
         );
         // @ts-ignore
-        expect(graph.nodes.length).not.toEqual(0);
+        expect(graph.nodes().length).not.toEqual(0);
     });
 });
