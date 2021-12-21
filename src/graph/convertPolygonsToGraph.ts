@@ -1,11 +1,12 @@
-import Graph from "graph-data-structure";
 import {featureCollection, FeatureCollection, Polygon} from "@turf/helpers";
 import centroid from "@turf/centroid";
 import booleanIntersects from "@turf/boolean-intersects";
+import {Graph as GraphType} from "./types/Graph";
+import Graph from "graph-data-structure";
 
 export function convertPolygonsToGraph(
     cells: FeatureCollection<Polygon, {weight: number}>
-): typeof Graph {
+): GraphType {
     const graph = Graph();
     const cellsCopy: FeatureCollection<Polygon, {weight: number, nodeId: string}> =
         featureCollection(cells.features) as FeatureCollection<Polygon, {weight: number, nodeId: string}>;
@@ -29,6 +30,5 @@ export function convertPolygonsToGraph(
         }
     }
 
-    // @ts-ignore
     return graph;
 }

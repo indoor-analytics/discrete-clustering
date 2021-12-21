@@ -1,20 +1,10 @@
 import {Feature, featureCollection, FeatureCollection, point} from "@turf/helpers";
-import Graph from "graph-data-structure";
-interface Serialized {
-    nodes: {
-        id: string;
-    }[];
-    links: {
-        source: string;
-        target: string;
-        weight: string;
-    }[];
-}
+import {Serialized} from "./types/Serialized";
+import {Graph} from "./types/Graph";
 
 export function convertGraphToFeatureCollection (
-    graph: typeof Graph
+    graph: Graph
 ): FeatureCollection {
-    // @ts-ignore
     const serializedGraph: Serialized = graph.serialize();
 
     const features: Feature[] = [];
