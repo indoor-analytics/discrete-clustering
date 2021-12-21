@@ -3,14 +3,17 @@ import {Serialized} from "./types/Serialized";
 import {Graph} from "./types/Graph";
 
 export function convertGraphToFeatureCollection (
-    graph: Graph
+    graph: Graph,
+    exportCellsCentroids = false
 ): FeatureCollection {
     const serializedGraph: Serialized = graph.serialize();
 
     const features: Feature[] = [];
-    features.push(...serializedGraph.nodes.map((node) => {
-        return point(node.id.split(',').map(c => +c))
-    }));
+
+    if (exportCellsCentroids)
+        features.push(...serializedGraph.nodes.map((node) => {
+            return point(node.id.split(',').map(c => +c))
+        }));
     features.push(...serializedGraph.links.map(link => {
         return lineString(
             [
