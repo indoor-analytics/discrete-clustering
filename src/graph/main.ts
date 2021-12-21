@@ -1,4 +1,4 @@
-import {Feature, featureCollection, LineString} from "@turf/helpers";
+import {Feature, FeatureCollection, featureCollection, LineString, Polygon} from "@turf/helpers";
 import {Shape} from "../Shape";
 import envelope from "@turf/envelope";
 import {getCellsFromArea} from "../getCellsFromArea";
@@ -14,5 +14,5 @@ export function getClusteredGraph(
     const testZone = envelope(featureCollection(paths));
     const zoneCells = getCellsFromArea(testZone, granularity, shape);
     const markedCells = markCellsWithPaths(zoneCells, paths);
-    return convertPolygonsToGraph(markedCells);
+    return convertPolygonsToGraph(markedCells as FeatureCollection<Polygon, {weight: number}>);
 }
