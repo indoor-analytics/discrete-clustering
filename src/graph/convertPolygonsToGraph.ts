@@ -1,6 +1,7 @@
 import Graph from "graph-data-structure";
 import {featureCollection, FeatureCollection, Polygon} from "@turf/helpers";
 import centroid from "@turf/centroid";
+import booleanIntersects from "@turf/boolean-intersects";
 
 export function convertPolygonsToGraph(
     cells: FeatureCollection<Polygon, {weight: number}>
@@ -13,6 +14,19 @@ export function convertPolygonsToGraph(
     for (const cell of cellsCopy.features) {
         cell.properties.nodeId = `${centroid(cell).geometry.coordinates}`;
         graph.addNode(cell.properties.nodeId);
+    }
+
+    // adding edges between each neighbour
+    for (const cell of cellsCopy.features) {
+        const neighbours = cellsCopy.features.filter(fCell => booleanIntersects(cell, fCell) && cell.properties.nodeId !== fCell.properties.nodeId);
+        for (const neighbour of neighbours) {
+            graph.addEdge(
+                cell.properties.nodeId, neighbour.properties.nodeId,
+                cell.properties.weight > neighbour.properties.weight
+                    ? neighbour.properties.weight
+                    : cell.properties.weight
+            )
+        }
     }
 
     // @ts-ignore
