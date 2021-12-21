@@ -12,6 +12,7 @@
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint src/ --ext .js,.jsx,.ts,.tsx --fix",
     "test": "jest",
+    "test:graph": "npx jest test/graph/graphConversion.test.ts",
     "test:integration": "npx ts-node test/integration.ts",
     "clean": "rm -rf dist build package",
     "ts-node": "ts-node",
