@@ -18,7 +18,7 @@ describe('Graph conversion tests', () => {
 describe ('Graph to FeatureCollection', () => {
     it ('should convert graph to featureCollection', () => {
         const graph = getClusteredGraph(getPaths(),
-            100,
+            360,
             Shape.Hexagon
         );
         const collection = convertGraphToFeatureCollection(graph);
