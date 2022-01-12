@@ -4,7 +4,7 @@ import {Graph} from "./types/Graph";
 
 
 interface ConversionSettings {
-    exportCellsCentroids?: boolean
+    exportCellsCentroids: boolean
 }
 
 const defaultConversionSettings: ConversionSettings = {
