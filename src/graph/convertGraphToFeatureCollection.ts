@@ -9,7 +9,7 @@ interface ConversionSettings {
 }
 
 const defaultConversionSettings: ConversionSettings = {
-    exportCellsCentroids: true,
+    exportCellsCentroids: false,
     maximumWidth: 20
 };
 
