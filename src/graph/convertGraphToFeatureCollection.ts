@@ -2,15 +2,26 @@ import {Feature, featureCollection, FeatureCollection, lineString, point} from "
 import {Serialized} from "./types/Serialized";
 import {Graph} from "./types/Graph";
 
+
+interface ConversionSettings {
+    exportCellsCentroids?: boolean
+}
+
+const defaultConversionSettings: ConversionSettings = {
+    exportCellsCentroids: true
+};
+
+
 export function convertGraphToFeatureCollection (
     graph: Graph,
-    exportCellsCentroids = false
+    conversionSettings: Partial<ConversionSettings> = {}
 ): FeatureCollection {
+    const settings: ConversionSettings = {...defaultConversionSettings, ...conversionSettings};
     const serializedGraph: Serialized = graph.serialize();
 
     const features: Feature[] = [];
 
-    if (exportCellsCentroids)
+    if (settings.exportCellsCentroids)
         features.push(...serializedGraph.nodes.map((node) => {
             return point(node.id.split(',').map(c => +c))
         }));
