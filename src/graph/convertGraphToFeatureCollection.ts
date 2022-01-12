@@ -4,7 +4,10 @@ import {Graph} from "./types/Graph";
 
 
 interface ConversionSettings {
+    /* Whether conversion should export cells centroids as markers. */
     exportCellsCentroids: boolean,
+
+    /* Exported lineStrings' stroke-width ranges from 0 to maximumWidth, depending on their weight. */
     maximumWidth: number
 }
 
