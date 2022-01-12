@@ -8,12 +8,16 @@ interface ConversionSettings {
     exportCellsCentroids: boolean,
 
     /* Exported lineStrings' stroke-width ranges from 0 to maximumWidth, depending on their weight. */
-    maximumWidth: number
+    maximumWidth: number,
+
+    /* Lines with a weight inferior to this are not exported. */
+    minimalWeightLimit: number
 }
 
 const defaultConversionSettings: ConversionSettings = {
     exportCellsCentroids: false,
-    maximumWidth: 10
+    maximumWidth: 10,
+    minimalWeightLimit: -1
 };
 
 
@@ -37,7 +41,12 @@ export function convertGraphToFeatureCollection (
         if (link.weight > localMaximum)
             localMaximum = link.weight;
 
-    const lines = serializedGraph.links.map(link => {
+    // weight-filtering lines
+    const filteredLinks = settings.minimalWeightLimit <= 0
+        ? serializedGraph.links
+        : serializedGraph.links.filter(link => link.weight >= settings.minimalWeightLimit);
+
+    const lines = filteredLinks.map(link => {
         return lineString(
             [
                 link.source.split(',').map(c => +c),
