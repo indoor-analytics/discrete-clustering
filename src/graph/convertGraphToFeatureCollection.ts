@@ -4,11 +4,13 @@ import {Graph} from "./types/Graph";
 
 
 interface ConversionSettings {
-    exportCellsCentroids: boolean
+    exportCellsCentroids: boolean,
+    maximumWidth: number
 }
 
 const defaultConversionSettings: ConversionSettings = {
-    exportCellsCentroids: true
+    exportCellsCentroids: true,
+    maximumWidth: 20
 };
 
 
@@ -32,7 +34,6 @@ export function convertGraphToFeatureCollection (
         if (link.weight > localMaximum)
             localMaximum = link.weight;
 
-    const MAXIMUM_WIDTH = 10;
     const lines = serializedGraph.links.map(link => {
         return lineString(
             [
@@ -40,7 +41,7 @@ export function convertGraphToFeatureCollection (
                 link.target.split(',').map(c => +c)
             ],
             {
-                'stroke-width': (link.weight / localMaximum) * MAXIMUM_WIDTH
+                'stroke-width': (link.weight / localMaximum) * settings.maximumWidth
             }
         );
     });
