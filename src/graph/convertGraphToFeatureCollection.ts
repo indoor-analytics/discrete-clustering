@@ -41,7 +41,8 @@ export function convertGraphToFeatureCollection (
                 link.target.split(',').map(c => +c)
             ],
             {
-                'stroke-width': (link.weight / localMaximum) * settings.maximumWidth
+                'stroke-width': (link.weight / localMaximum) * settings.maximumWidth,
+                weight: link.weight
             }
         );
     });
