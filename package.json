@@ -29,7 +29,6 @@
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "eslint": "^7.22.0",
-    "graph-data-structure": "^2.0.0",
     "husky": "^7.0.2",
     "jest": "^26.6.3",
     "size-limit": "^6.0.3",
@@ -58,6 +57,8 @@
     "@turf/line-intersect": "^6.5.0",
     "@turf/line-overlap": "^6.5.0",
     "@turf/square-grid": "^6.5.0",
-    "@turf/triangle-grid": "^6.5.0"
+    "@turf/triangle-grid": "^6.5.0",
+    "graphology": "^0.23.2",
+    "graphology-types": "^0.23.0"
   }
 }

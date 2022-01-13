@@ -4,13 +4,13 @@ import envelope from "@turf/envelope";
 import {getCellsFromArea} from "../getCellsFromArea";
 import {markCellsWithPaths} from "../markCellsWithPaths";
 import {convertPolygonsToGraph} from "./convertPolygonsToGraph";
-import {Graph as GraphType} from './types/Graph';
+import Graph from "graphology";
 
 export function getClusteredGraph(
     paths: Feature<LineString>[],
     granularity: number,
     shape = Shape.Square
-): GraphType {
+): Graph {
     const testZone = envelope(featureCollection(paths));
     const zoneCells = getCellsFromArea(testZone, granularity, shape);
     const markedCells = markCellsWithPaths(zoneCells, paths);

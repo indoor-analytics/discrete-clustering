@@ -1,6 +1,5 @@
 import {Feature, featureCollection, FeatureCollection, lineString, point} from "@turf/helpers";
-import {Serialized} from "./types/Serialized";
-import {Graph} from "./types/Graph";
+import Graph from "graphology";
 
 
 interface ConversionSettings {
@@ -26,41 +25,45 @@ export function convertGraphToFeatureCollection (
     conversionSettings: Partial<ConversionSettings> = {}
 ): FeatureCollection {
     const settings: ConversionSettings = {...defaultConversionSettings, ...conversionSettings};
-    const serializedGraph: Serialized = graph.serialize();
 
     const features: Feature[] = [];
 
     if (settings.exportCellsCentroids)
-        features.push(...serializedGraph.nodes.map((node) => {
-            return point(node.id.split(',').map(c => +c))
+        features.push(...graph.mapNodes((node) => {
+            return point(node.split(',').map(c => +c))
         }));
 
     // looking for maximum weight
     let localMaximum = 0;
-    for (const link of serializedGraph.links)
-        if (link.weight > localMaximum)
-            localMaximum = link.weight;
+    graph.forEachEdge((_, attributes) => {
+        if (attributes.weight > localMaximum)
+            localMaximum = attributes.weight;
+    });
 
     // weight-filtering lines
     const filteredLinks = settings.minimalWeightLimit <= 0
-        ? serializedGraph.links
-        : serializedGraph.links.filter(link => link.weight >= settings.minimalWeightLimit);
+        ? graph.edges()
+        : graph.filterEdges(edge => {
+            return graph.getEdgeAttribute(edge, 'weight') >= settings.minimalWeightLimit;
+        })
 
     const lines = filteredLinks.map(link => {
+        const weight = graph.getEdgeAttribute(link, 'weight');
+        const coordinates = link.split('/');
         return lineString(
             [
-                link.source.split(',').map(c => +c),
-                link.target.split(',').map(c => +c)
+                coordinates[0].split(',').map(c => +c),
+                coordinates[1].split(',').map(c => +c)
             ],
             {
-                'stroke-width': (link.weight / localMaximum) * settings.maximumWidth,
-                weight: link.weight
+                'stroke-width': (weight / localMaximum) * settings.maximumWidth,
+                weight: weight
             }
         );
     });
 
-
     features.push(...lines);
+
 
     return featureCollection(features);
 }
