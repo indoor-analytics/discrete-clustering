@@ -29,7 +29,7 @@ export function convertGraphToFeatureCollection (
     const features: Feature[] = [];
 
     if (settings.exportCellsCentroids)
-        features.push(...graph.nodes().map((node) => {
+        features.push(...graph.mapNodes((node) => {
             return point(node.split(',').map(c => +c))
         }));
 
@@ -43,7 +43,7 @@ export function convertGraphToFeatureCollection (
     // weight-filtering lines
     const filteredLinks = settings.minimalWeightLimit <= 0
         ? graph.edges()
-        : graph.edges().filter(edge => {
+        : graph.filterEdges(edge => {
             return graph.getEdgeAttribute(edge, 'weight') >= settings.minimalWeightLimit;
         })
 
