@@ -5,7 +5,6 @@ import {getCellsFromArea} from "../getCellsFromArea";
 import {markCellsWithPaths} from "../markCellsWithPaths";
 import {convertPolygonsToGraph} from "./convertPolygonsToGraph";
 import Graph from "graphology";
-// import {Graph as GraphType} from './types/Graph';
 
 export function getClusteredGraph(
     paths: Feature<LineString>[],

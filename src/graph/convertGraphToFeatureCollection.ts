@@ -1,7 +1,5 @@
 import {Feature, featureCollection, FeatureCollection, lineString, point} from "@turf/helpers";
-// import {Serialized} from "./types/Serialized";
 import Graph from "graphology";
-// import {Graph} from "./types/Graph";
 
 
 interface ConversionSettings {
@@ -27,7 +25,6 @@ export function convertGraphToFeatureCollection (
     conversionSettings: Partial<ConversionSettings> = {}
 ): FeatureCollection {
     const settings: ConversionSettings = {...defaultConversionSettings, ...conversionSettings};
-    // const serializedGraph: Serialized = graph.serialize();
 
     const features: Feature[] = [];
 
@@ -36,25 +33,14 @@ export function convertGraphToFeatureCollection (
             return point(node.split(',').map(c => +c))
         }));
 
-    /* features.push(...serializedGraph.nodes.map((node) => {
-            return point(node.id.split(',').map(c => +c))
-        }));*/
-
     // looking for maximum weight
     let localMaximum = 0;
-    /*
-    for (const link of serializedGraph.links)
-        if (link.weight > localMaximum)
-            localMaximum = link.weight;*/
     graph.forEachEdge((_, attributes) => {
         if (attributes.weight > localMaximum)
             localMaximum = attributes.weight;
     });
 
     // weight-filtering lines
-    /*const filteredLinks = settings.minimalWeightLimit <= 0
-        ? serializedGraph.links
-        : serializedGraph.links.filter(link => link.weight >= settings.minimalWeightLimit);*/
     const filteredLinks = settings.minimalWeightLimit <= 0
         ? graph.edges()
         : graph.edges().filter(edge => {
@@ -63,7 +49,6 @@ export function convertGraphToFeatureCollection (
 
     const lines = filteredLinks.map(link => {
         const weight = graph.getEdgeAttribute(link, 'weight');
-        console.log(link);
         const coordinates = link.split('/');
         return lineString(
             [
@@ -76,23 +61,9 @@ export function convertGraphToFeatureCollection (
             }
         );
     });
-    /*
-    const lines = filteredLinks.map(link => {
-        return lineString(
-            [
-                link.source.split(',').map(c => +c),
-                link.target.split(',').map(c => +c)
-            ],
-            {
-                'stroke-width': (link.weight / localMaximum) * settings.maximumWidth,
-                weight: link.weight
-            }
-        );
-    });*/
-
-
 
     features.push(...lines);
+
 
     return featureCollection(features);
 }

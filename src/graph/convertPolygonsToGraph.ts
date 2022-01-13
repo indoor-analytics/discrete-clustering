@@ -1,14 +1,11 @@
 import {featureCollection, FeatureCollection, Polygon} from "@turf/helpers";
 import centroid from "@turf/centroid";
-// import {Graph as GraphType} from "./types/Graph";
-// import Graph from "graph-data-structure";
 import lineOverlap from "@turf/line-overlap";
 import Graph from 'graphology';
 
 export function convertPolygonsToGraph(
     cells: FeatureCollection<Polygon, {weight: number}>
 ): Graph {
-    // const graph = Graph();
     const graph = new Graph();
     const cellsCopy: FeatureCollection<Polygon, {weight: number, nodeId: string}> =
         featureCollection(cells.features) as FeatureCollection<Polygon, {weight: number, nodeId: string}>;
@@ -16,7 +13,6 @@ export function convertPolygonsToGraph(
     // adding a node for each polygon
     for (const cell of cellsCopy.features) {
         cell.properties.nodeId = `${centroid(cell).geometry.coordinates}`;
-        // graph.addNode(cell.properties.nodeId);
         graph.addNode(cell.properties.nodeId);
     }
 
