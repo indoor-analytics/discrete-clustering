@@ -1,4 +1,4 @@
-import {getClusteredGraph} from "../../src/graph/main";
+import {getClusteredGraph} from "../../src/graph/getClusteredGraph";
 import {getPaths} from "../features/paths";
 import {Shape} from "../../src/Shape";
 import {printCollectionToFile} from "../utils/printCollectionToFile";

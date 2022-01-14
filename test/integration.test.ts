@@ -1,7 +1,7 @@
-import {clusterPaths} from "../src/zones";
 import {getPaths} from "./features/paths";
 import {printCollectionToFile} from "./utils/printCollectionToFile";
 import {Shape} from "../src/Shape";
+import {clusterPaths} from "../src/zones/clusterPaths";
 
 describe('Integration', () => {
     it ('should return some cells', () => {

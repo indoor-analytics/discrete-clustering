@@ -4,7 +4,6 @@ import { markCellsWithPaths } from "./markCellsWithPaths";
 import {colorCells} from "./colorCells";
 import {Shape} from "../Shape";
 import envelope from "@turf/envelope";
-import { getClusteredGraph } from "../graph/main";
 
 /**
  * This will compute the smallest polygon containing all input paths, discretize
@@ -17,7 +16,7 @@ import { getClusteredGraph } from "../graph/main";
  * @param shape shape used to create grid cells
  * @returns weightened cells
  */
-function clusterPaths(
+export function clusterPaths(
     paths: Feature<LineString>[],
     granularity: number,
     shape = Shape.Square
@@ -27,5 +26,3 @@ function clusterPaths(
     const markedCells = markCellsWithPaths(zoneCells, paths);
     return colorCells(markedCells as FeatureCollection<Polygon, {weight: number}>);
 }
-
-export {clusterPaths, getClusteredGraph};
