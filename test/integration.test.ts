@@ -1,4 +1,4 @@
-import {discreteClustering} from "../src/zones";
+import {clusterPaths} from "../src/zones";
 import {getPaths} from "./features/paths";
 import {printCollectionToFile} from "./utils/printCollectionToFile";
 import {Shape} from "../src/Shape";
@@ -6,7 +6,7 @@ import {Shape} from "../src/Shape";
 describe('Integration', () => {
     it ('should return some cells', () => {
         console.time('clustering');
-        const cells = discreteClustering(
+        const cells = clusterPaths(
             getPaths(),
             360,
             Shape.Hexagon

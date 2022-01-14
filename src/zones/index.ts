@@ -7,7 +7,6 @@ import envelope from "@turf/envelope";
 import { getClusteredGraph } from "../graph/main";
 
 /**
- * Entrypoint of this package.
  * This will compute the smallest polygon containing all input paths, discretize
  * it using provided shape and shape size, and will compute intersections of
  * paths with grid cells; each intersected cell will be marked with a weight
@@ -18,7 +17,7 @@ import { getClusteredGraph } from "../graph/main";
  * @param shape shape used to create grid cells
  * @returns weightened cells
  */
-function discreteClustering(
+function clusterPaths(
     paths: Feature<LineString>[],
     granularity: number,
     shape = Shape.Square
@@ -29,4 +28,4 @@ function discreteClustering(
     return colorCells(markedCells as FeatureCollection<Polygon, {weight: number}>);
 }
 
-export {discreteClustering, getClusteredGraph};
+export {clusterPaths, getClusteredGraph};

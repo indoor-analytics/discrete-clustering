@@ -1,4 +1,4 @@
-import {discreteClustering} from "../src/zones";
+import {clusterPaths} from "../src/zones";
 import {getPaths} from "./features/paths";
 import {Shape} from "../src/Shape";
 
@@ -8,7 +8,7 @@ console.log(`Benchmarking discreteClustering with ${runsCount} executions...\n`)
 
 for (let i=0; i<runsCount; i++) {
     const beginTime = Date.now();
-    discreteClustering(
+    clusterPaths(
         getPaths(),
         360,
         Shape.Hexagon
