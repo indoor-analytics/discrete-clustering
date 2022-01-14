@@ -1,4 +1,4 @@
-import { getCellsFromArea } from "../src/getCellsFromArea";
+import { getCellsFromArea } from "../src/zones/getCellsFromArea";
 import { trainStationZoneOfInterest } from "./features/zones";
 
 describe ('Get cells from area', () => {

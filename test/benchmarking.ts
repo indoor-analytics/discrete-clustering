@@ -1,4 +1,4 @@
-import {discreteClustering} from "../src";
+import {discreteClustering} from "../src/zones";
 import {getPaths} from "./features/paths";
 import {Shape} from "../src/Shape";
 
