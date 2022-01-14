@@ -3,6 +3,14 @@ import centroid from "@turf/centroid";
 import lineOverlap from "@turf/line-overlap";
 import Graph from 'graphology';
 
+/**
+ * Converts a set of weighted cells to a graph.
+ * The returned graph has nodes for each of input cells, and edges linking nodes
+ * have a weight attribute showing number of paths represented.
+ * 
+ * @param cells weighted cells
+ * @returns weighted-edges graph
+ */
 export function convertPolygonsToGraph(
     cells: FeatureCollection<Polygon, {weight: number}>
 ): Graph {

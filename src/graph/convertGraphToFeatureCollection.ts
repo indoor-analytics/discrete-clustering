@@ -20,6 +20,14 @@ const defaultConversionSettings: ConversionSettings = {
 };
 
 
+/**
+ * Creates a GeoJSON feature collection (https://datatracker.ietf.org/doc/html/rfc7946#section-3.3)
+ * from a graph; said GeoJSON content can be customized by providing settings.
+ * 
+ * @param graph graph to convert
+ * @param conversionSettings optional settings to customize produced GeoJSON
+ * @returns GeoJSON feature collection
+ */
 export function convertGraphToFeatureCollection (
     graph: Graph,
     conversionSettings: Partial<ConversionSettings> = {}
