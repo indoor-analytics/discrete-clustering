@@ -1,6 +1,6 @@
 import {getClusteredGraph} from "../../src/graph/getClusteredGraph";
 import {getPaths} from "../features/paths";
-import {Shape} from "../../src/Shape";
+import {Shape} from "../../src/utils/Shape";
 import {printCollectionToFile} from "../utils/printCollectionToFile";
 import {convertGraphToFeatureCollection} from "../../src/graph/convertGraphToFeatureCollection";
 

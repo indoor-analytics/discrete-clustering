@@ -1,5 +1,5 @@
 import {Feature, FeatureCollection, featureCollection, LineString, Polygon} from "@turf/helpers";
-import {Shape} from "../Shape";
+import {Shape} from "../utils/Shape";
 import envelope from "@turf/envelope";
 import {getCellsFromArea} from "../zones/getCellsFromArea";
 import {markCellsWithPaths} from "../zones/markCellsWithPaths";

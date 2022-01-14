@@ -2,7 +2,7 @@ import {Feature, Polygon, LineString, FeatureCollection, featureCollection} from
 import { getCellsFromArea } from "./getCellsFromArea";
 import { markCellsWithPaths } from "./markCellsWithPaths";
 import {colorCells} from "./colorCells";
-import {Shape} from "../Shape";
+import {Shape} from "../utils/Shape";
 import envelope from "@turf/envelope";
 
 /**

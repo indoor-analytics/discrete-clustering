@@ -2,7 +2,7 @@ import bbox from "@turf/bbox";
 import {Feature, FeatureCollection, Polygon} from "@turf/helpers";
 import length from "@turf/length";
 import squareGrid from "@turf/square-grid";
-import {Shape} from "../Shape";
+import {Shape} from "../utils/Shape";
 import triangleGrid from "@turf/triangle-grid";
 import hexGrid from "@turf/hex-grid";
 

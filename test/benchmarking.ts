@@ -1,6 +1,6 @@
 import {clusterPaths} from "../src/zones";
 import {getPaths} from "./features/paths";
-import {Shape} from "../src/Shape";
+import {Shape} from "../src/utils/Shape";
 
 const runsCount = 10;
 let durationsSum = 0;
