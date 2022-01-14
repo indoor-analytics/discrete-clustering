@@ -23,7 +23,7 @@ module.exports = {
         library: {
             name: 'discreteClustering',
             type: 'commonjs',
-            export: 'discreteClustering',
+            export: ['discreteClustering', 'getClusteredGraph']
         }
     },
 };
