@@ -14,7 +14,7 @@ describe('getClusteredPath', () => {
         const path = getClusteredPath(
             testGraph,
             referencePath.geometry.coordinates[0],
-            referencePath.geometry.coordinates[1]
+            referencePath.geometry.coordinates[referencePath.geometry.coordinates.length-1]
         );
         expect(path.geometry.coordinates.length).toBeGreaterThan(0);
     });
