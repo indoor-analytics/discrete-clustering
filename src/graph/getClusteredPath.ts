@@ -11,6 +11,15 @@ function _nodeToPosition(
 }
 
 
+/**
+ * This extracts a path linking a start position to an end position from a given
+ * graph; this will try and select edges that feature the biggest weight possible.
+ *
+ * @param graph weighted-edges graph
+ * @param start starting position (may not be a graph's edge)
+ * @param end ending position (may not be a graph's edge)
+ * @returns
+ */
 export function getClusteredPath(
     graph: Graph,
     start: Position,
