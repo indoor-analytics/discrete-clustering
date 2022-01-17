@@ -6,9 +6,13 @@ Clusters a bunch of paths by discretizing space with a given shape.
 |:--:|:--:|
 | *30 paths we want to cluster* | *hexagon clustering result* |
 
+| ![Paths to cluster](img/graph_extraction.png) | ![Clustering result](img/clustered_path.png) |
+|:--:|:--:|
+| *Corresponding graph* | *`getClusteredPath` result* |
+
 ## How to use
 
-Add this line to `~/.npmrc` to set up the package registry: 
+Add this line to `~/.npmrc` to set up the package registry:
 ```shell
 @indoor-analytics:registry=https://npm.pkg.github.com/indoor-analytics
 ```
@@ -18,9 +22,9 @@ In your project, install the package:
 npm i --save @indoor-analytics/discrete-clustering
 ```
 
-Import the function in your code:
+Import methods in your code:
 ```javascript
-import {discreteClustering} from '@indoor-analytics/discrete-clustering';
+import {clusterPaths, getClusteredGraph, getClusteredPath, Shape} from '@indoor-analytics/discrete-clustering';
 ```
 
 ## Discretization
@@ -30,4 +34,4 @@ Space can be discretized with different shapes:
 * triangle
 * hexagon
 
-Size of such shapes can be modified by playing with the `granularity` parameter of `discreteClustering` method.
+Size of such shapes can be modified by playing with the `granularity` parameter of `clusterPaths`/`getClusteredGraph` methods.

@@ -1,7 +1,7 @@
 import squareGrid from "@turf/square-grid";
 import {trainStationZoneOfInterest} from "./features/zones";
 import bbox from "@turf/bbox";
-import {markCellsWithPaths} from "../src/markCellsWithPaths";
+import {markCellsWithPaths} from "../src/zones/markCellsWithPaths";
 import {featureCollection, lineString} from "@turf/helpers";
 import {getPaths} from "./features/paths";
 

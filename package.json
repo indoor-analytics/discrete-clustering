@@ -1,6 +1,6 @@
 {
   "name": "@indoor-analytics/discrete-clustering",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Clusters a bunch of paths by space discretization.",
   "author": "Rémy Raes",
   "repository": "https://github.com/indoor-analytics/discrete-clustering",
@@ -8,10 +8,11 @@
   "main": "./dist/bundle.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-     "benchmark": "npx ts-node test/benchmarking.ts",
+    "benchmark": "npx ts-node test/benchmarking.ts",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint src/ --ext .js,.jsx,.ts,.tsx --fix",
     "test": "jest",
+    "test:graph": "npx jest test/graph/graphConversion.test.ts",
     "test:integration": "npx ts-node test/integration.ts",
     "clean": "rm -rf dist build package",
     "ts-node": "ts-node",
@@ -42,18 +43,24 @@
   "size-limit": [
     {
       "path": "dist/bundle.js",
-      "limit": "25 KB"
+      "limit": "50 KB"
     }
   ],
   "dependencies": {
     "@turf/bbox": "^6.5.0",
+    "@turf/centroid": "^6.5.0",
     "@turf/clone": "^6.5.0",
+    "@turf/distance": "^6.5.0",
     "@turf/envelope": "^6.5.0",
     "@turf/helpers": "^6.5.0",
     "@turf/hex-grid": "^6.5.0",
     "@turf/length": "^6.5.0",
     "@turf/line-intersect": "^6.5.0",
+    "@turf/line-overlap": "^6.5.0",
     "@turf/square-grid": "^6.5.0",
-    "@turf/triangle-grid": "^6.5.0"
+    "@turf/triangle-grid": "^6.5.0",
+    "graphology": "^0.23.2",
+    "graphology-shortest-path": "^2.0.0",
+    "graphology-types": "^0.23.0"
   }
 }

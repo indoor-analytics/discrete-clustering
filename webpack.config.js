@@ -21,9 +21,7 @@ module.exports = {
         // eslint-disable-next-line no-undef
         path: path.resolve(__dirname, 'dist'),
         library: {
-            name: 'discreteClustering',
-            type: 'commonjs',
-            export: 'discreteClustering',
+            type: 'commonjs'
         }
     },
 };
