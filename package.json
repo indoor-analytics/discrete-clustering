@@ -59,6 +59,7 @@
     "@turf/square-grid": "^6.5.0",
     "@turf/triangle-grid": "^6.5.0",
     "graphology": "^0.23.2",
+    "graphology-shortest-path": "^2.0.0",
     "graphology-types": "^0.23.0"
   }
 }
