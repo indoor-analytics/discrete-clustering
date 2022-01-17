@@ -13,7 +13,7 @@ export function getPaths (): Feature<LineString>[] {
 }
 
 export function getReferencePath (): Feature<LineString> {
-    const data = fs.readFileSync('test/features/runs.json', 'utf8');
+    const data = fs.readFileSync('test/features/refPath.json', 'utf8');
     const points = JSON.parse(data) as Feature<Point>[];
     return lineString(points.map(point => point.geometry.coordinates));
 }
