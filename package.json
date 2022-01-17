@@ -50,6 +50,7 @@
     "@turf/bbox": "^6.5.0",
     "@turf/centroid": "^6.5.0",
     "@turf/clone": "^6.5.0",
+    "@turf/distance": "^6.5.0",
     "@turf/envelope": "^6.5.0",
     "@turf/helpers": "^6.5.0",
     "@turf/hex-grid": "^6.5.0",
