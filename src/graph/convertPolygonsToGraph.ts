@@ -1,13 +1,14 @@
-import {featureCollection, FeatureCollection, Polygon} from "@turf/helpers";
+import {Feature, featureCollection, FeatureCollection, Polygon} from "@turf/helpers";
 import centroid from "@turf/centroid";
 import lineOverlap from "@turf/line-overlap";
 import Graph from 'graphology';
+import distance from "@turf/distance";
 
 /**
  * Converts a set of weighted cells to a graph.
  * The returned graph has nodes for each of input cells, and edges linking nodes
  * have a weight attribute showing number of paths represented.
- * 
+ *
  * @param cells weighted cells
  * @returns weighted-edges graph
  */
@@ -25,7 +26,10 @@ export function convertPolygonsToGraph(
     }
 
     // adding edges between each neighbour
+    console.log(_getNeighbourDistance(cellsCopy.features[0]));
+
     for (const cell of cellsCopy.features) {
+        // TODO try to add edges by comparing distance between cells centers
         const neighbours = cellsCopy.features.filter(fCell => lineOverlap(cell, fCell, {tolerance: 0.001}).features.length !== 0 && cell.properties.nodeId !== fCell.properties.nodeId);
         for (const neighbour of neighbours) {
             graph.addEdgeWithKey(
@@ -41,4 +45,31 @@ export function convertPolygonsToGraph(
     }
 
     return graph;
+}
+
+/**
+ * Returns a distance that allows to pick one cell's neighbours.
+ *
+ * @param cell grid cells sample
+ */
+function _getNeighbourDistance(cell: Feature<Polygon>): number {
+    const coordinates = cell.geometry.coordinates[0]
+
+    switch (coordinates.length) {
+    case 4:
+        // triangle
+        return Math.max(
+            distance(coordinates[0], coordinates[1]),
+            distance(coordinates[1], coordinates[2]),
+            distance(coordinates[2], coordinates[3])
+        );
+    case 5:
+        // square
+        return distance(coordinates[0], coordinates[2]);
+    case 7:
+        // hexagon
+        return distance(coordinates[0], coordinates[3]);
+    default:
+        throw new RangeError('unknown shape');
+    }
 }
