@@ -1,6 +1,5 @@
 import {Feature, featureCollection, FeatureCollection, Polygon} from "@turf/helpers";
 import centroid from "@turf/centroid";
-import lineOverlap from "@turf/line-overlap";
 import Graph from 'graphology';
 import distance from "@turf/distance";
 
@@ -26,11 +25,12 @@ export function convertPolygonsToGraph(
     }
 
     // adding edges between each neighbour
-    console.log(_getNeighbourDistance(cellsCopy.features[0]));
+    const neighbourDistance = _getNeighbourDistance(cellsCopy.features[0]);
 
     for (const cell of cellsCopy.features) {
-        // TODO try to add edges by comparing distance between cells centers
-        const neighbours = cellsCopy.features.filter(fCell => lineOverlap(cell, fCell, {tolerance: 0.001}).features.length !== 0 && cell.properties.nodeId !== fCell.properties.nodeId);
+        const cellCentroid = centroid(cell);
+        const neighbours = cellsCopy.features.filter(fCell => distance(cellCentroid, centroid(fCell)) < neighbourDistance && cell.properties.nodeId !== fCell.properties.nodeId)
+
         for (const neighbour of neighbours) {
             graph.addEdgeWithKey(
                 `${cell.properties.nodeId}/${neighbour.properties.nodeId}`,
