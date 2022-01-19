@@ -55,7 +55,11 @@ export function getClusteredPath(
         );
     });
 
-    // computing shortest path between start and end nodes
+    // computing the shortest path between start and end nodes
     const pathNodes = dijkstra.bidirectional(graphClone, startingNode, endingNode, (_, attr) => attr.weight);
+
+    if (!pathNodes)
+        throw new RangeError('Path cannot be extracted from graph, try using a smaller granularity.');
+
     return lineString(pathNodes.map(node => _nodeToPosition(node)));
 }
