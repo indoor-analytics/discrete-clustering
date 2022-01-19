@@ -65,7 +65,7 @@ function _getNeighbourDistance(cell: Feature<Polygon>): number {
         );
     case 5:
         // square
-        return distance(coordinates[0], coordinates[2]);
+        return 0.8 * distance(coordinates[0], coordinates[2]);
     case 7:
         // hexagon
         return distance(coordinates[0], coordinates[3]);
