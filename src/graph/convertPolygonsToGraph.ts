@@ -58,7 +58,7 @@ function _getNeighbourDistance(cell: Feature<Polygon>): number {
     switch (coordinates.length) {
     case 4:
         // triangle
-        return Math.max(
+        return 0.8 * Math.min(
             distance(coordinates[0], coordinates[1]),
             distance(coordinates[1], coordinates[2]),
             distance(coordinates[2], coordinates[3])
