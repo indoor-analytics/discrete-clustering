@@ -20,6 +20,11 @@ export function getCellsFromArea(zoneOfInterest: Feature<Polygon>, granularity =
     const cellSize = areaLength/granularity;
     const options = {mask: zoneOfInterest};
 
+    areaBbox[0] -= cellSize;
+    areaBbox[1] -= cellSize;
+    areaBbox[2] += cellSize;
+    areaBbox[3] += cellSize;
+
     switch (shape) {
     case Shape.Triangle:
         return triangleGrid(areaBbox, cellSize, options);

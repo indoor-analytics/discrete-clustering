@@ -4,11 +4,11 @@ import lineIntersect from "@turf/line-intersect";
 
 
 /**
- * Checks intersections with all cells and all inputs paths, and 
- * attribute a weight to each cell according to the number of 
+ * Checks intersections with all cells and all inputs paths, and
+ * attribute a weight to each cell according to the number of
  * paths that intersect it.
  * This does not return cells that are not crossed by a path.
- * 
+ *
  * @param cells grid cells to weight
  * @param paths paths to check intersections against
  * @returns an ensemble of cells with a weight attribute each
@@ -38,6 +38,6 @@ export function markCellsWithPaths(
 
     // filter out cells that are not crossed by a path
     return featureCollection(localCells.features.filter((cell: Feature<Polygon, {weight?: number}>) => {
-        return cell.properties.weight !== undefined && cell.properties.weight > 1;
+        return cell.properties.weight !== undefined;
     }));
 }

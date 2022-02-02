@@ -4,6 +4,10 @@ import bbox from "@turf/bbox";
 import {markCellsWithPaths} from "../src/zones/markCellsWithPaths";
 import {featureCollection, lineString} from "@turf/helpers";
 import {getPaths} from "./features/paths";
+import envelope from "@turf/envelope";
+import {getCellsFromArea} from "../src/zones/getCellsFromArea";
+import {Shape} from "../src";
+import {printCollectionToFile} from "./utils/printCollectionToFile";
 
 const cells = squareGrid(bbox(trainStationZoneOfInterest), 0.1);
 const paths = getPaths();
@@ -31,5 +35,17 @@ describe('Mark cells with paths', () => {
             if (cell.properties?.weight === undefined)
                 throw new Error("Cell has no weight.");
         }
+    });
+
+    it ('should retain cells covering all paths', () => {
+        const paths = getPaths('topRuns.json');
+        printCollectionToFile(featureCollection(paths), 'paths.json');
+        const testZone = envelope(featureCollection(paths));
+        const zoneCells = getCellsFromArea(testZone, 60, Shape.Hexagon);
+        printCollectionToFile(zoneCells, 'pathsCells.json');
+
+        const markedCells = markCellsWithPaths(zoneCells, paths);
+        printCollectionToFile(markedCells, 'markedCells.json');
+        expect(markedCells.features.length).toEqual(24);
     });
 });
