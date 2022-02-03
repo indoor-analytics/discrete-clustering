@@ -14,15 +14,20 @@ import envelope from "@turf/envelope";
  * @param paths input paths to cluster
  * @param granularity size of grid cells (increase this to reduce cells' size)
  * @param shape shape used to create grid cells
+ * @param shouldColorCells adds fill-opacity attribute to cells regarding their weight
  * @returns weightened cells
  */
 export function clusterPaths(
     paths: Feature<LineString>[],
     granularity: number,
-    shape = Shape.Square
+    shape = Shape.Square,
+    shouldColorCells = true
 ): FeatureCollection {
     const testZone = envelope(featureCollection(paths));
     const zoneCells = getCellsFromArea(testZone, granularity, shape);
     const markedCells = markCellsWithPaths(zoneCells, paths);
-    return colorCells(markedCells as FeatureCollection<Polygon, {weight: number}>);
+
+    return shouldColorCells 
+        ? colorCells(markedCells as FeatureCollection<Polygon, {weight: number}>)
+        : markedCells;
 }
