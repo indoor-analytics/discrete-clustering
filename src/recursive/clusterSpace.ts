@@ -10,10 +10,6 @@ export function clusterSpace (
     if (targetDepth < 1)
         throw new RangeError('Target depth must be superior to 0.');
 
-    // if there are no input paths, return empty collection
-    if (paths.features.length === 0)
-        return featureCollection([]);
-
     // TODO throw if there are paths outside zone
 
     return _computeZones(paths, envelope(paths), targetDepth);
@@ -25,6 +21,10 @@ function _computeZones(
     targetDepth: number,
     currentDepth = 0
 ): FeatureCollection<Polygon, {weight: number}> {
+
+    // if there are no input paths, return empty collection
+    if (paths.features.length === 0)
+        return featureCollection([]);
 
     // mark zone with weight
     const newZone: Feature<Polygon, {weight: number}> = clone(zone);
@@ -38,7 +38,7 @@ function _computeZones(
     const returnCells: Feature<Polygon, {weight: number}>[] = [];
 
     for (const subZone of subZones) {
-        const subZonePaths: FeatureCollection<LineString> = featureCollection([]);   // TODO get subZone path segments
+        const subZonePaths: FeatureCollection<LineString> = paths;   // TODO get subZone path segments
         returnCells.push(
             ..._computeZones(
                 subZonePaths,
