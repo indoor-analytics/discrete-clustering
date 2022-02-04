@@ -15,4 +15,9 @@ describe('Cluster space', () => {
         const cluster = () => clusterSpace(paths, trainStationSquare, -42);
         expect(cluster).toThrow(new RangeError('Target depth must be superior to 0.'));
     });
+
+    it ('should throw if current depth is superior to target depth', () => {
+        const cluster = () => clusterSpace(paths, trainStationSquare, 5, 6);
+        expect(cluster).toThrow(new RangeError('Current depth cannot be superior to target depth.'));
+    });
 });
