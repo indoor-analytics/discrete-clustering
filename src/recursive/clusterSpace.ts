@@ -1,24 +1,30 @@
 import { Feature, featureCollection, FeatureCollection, LineString, Polygon } from "@turf/helpers";
 import { splitPolygon } from "./splitPolygon";
 import clone from "@turf/clone";
+import envelope from "@turf/envelope";
 
 export function clusterSpace (
     paths: FeatureCollection<LineString>,
-    zone: Feature<Polygon>,
-    targetDepth: number,
-    currentDepth = 0
+    targetDepth: number
 ): FeatureCollection<Polygon, {weight: number}> {
     if (targetDepth < 1)
         throw new RangeError('Target depth must be superior to 0.');
-    if (currentDepth > targetDepth)
-        throw new RangeError('Current depth cannot be superior to target depth.');
 
     // if there are no input paths, return empty collection
     if (paths.features.length === 0)
         return featureCollection([]);
 
-
     // TODO throw if there are paths outside zone
+
+    return _computeZones(paths, envelope(paths), targetDepth);
+}
+
+function _computeZones(
+    paths: FeatureCollection<LineString>,
+    zone: Feature<Polygon>,
+    targetDepth: number,
+    currentDepth = 0
+): FeatureCollection<Polygon, {weight: number}> {
 
     // mark zone with weight
     const newZone: Feature<Polygon, {weight: number}> = clone(zone);
@@ -26,8 +32,7 @@ export function clusterSpace (
 
     // end recursion if target depth has been reached
     if (currentDepth === targetDepth)
-        return featureCollection([newZone]);
-
+        return featureCollection([newZone as Feature<Polygon, {weight: number}>]);
 
     const subZones = splitPolygon(zone).features;
     const returnCells: Feature<Polygon, {weight: number}>[] = [];
@@ -35,7 +40,7 @@ export function clusterSpace (
     for (const subZone of subZones) {
         const subZonePaths: FeatureCollection<LineString> = featureCollection([]);   // TODO get subZone path segments
         returnCells.push(
-            ...clusterSpace(
+            ..._computeZones(
                 subZonePaths,
                 subZone,
                 targetDepth,
