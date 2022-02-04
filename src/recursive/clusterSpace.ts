@@ -9,6 +9,8 @@ export function clusterSpace (
 ): FeatureCollection<Polygon, {weight: number}> {
     if (targetDepth < 1)
         throw new RangeError('Target depth must be superior to 0.');
+    if (currentDepth > targetDepth)
+        throw new RangeError('Current depth cannot be superior to target depth.');
 
     // TODO throw if there are paths outside zone
     // TODO if there are no paths, return empty collection
