@@ -20,4 +20,9 @@ describe('Cluster space', () => {
         const cluster = () => clusterSpace(paths, trainStationSquare, 5, 6);
         expect(cluster).toThrow(new RangeError('Current depth cannot be superior to target depth.'));
     });
+
+    it ('should return an empty collection with no input paths', () => {
+        const result = clusterSpace(featureCollection([]), trainStationSquare, 2);
+        expect(result.features.length).toEqual(0);
+    });
 });
