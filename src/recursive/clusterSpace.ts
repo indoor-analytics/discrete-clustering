@@ -15,9 +15,9 @@ export function clusterSpace (
 
     // end recursion if target depth has been reached
     if (currentDepth === targetDepth)
-        return featureCollection([zone]);
+        return featureCollection([zone as Feature<Polygon, {weight: number}>]);
 
-    
+
     const subZones = splitPolygon(zone).features;
     const returnCells: Feature<Polygon, {weight: number}>[] = [];
 
