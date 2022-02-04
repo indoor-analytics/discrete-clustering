@@ -1,5 +1,6 @@
 import { Feature, featureCollection, FeatureCollection, LineString, Polygon } from "@turf/helpers";
 import { splitPolygon } from "./splitPolygon";
+import clone from "@turf/clone";
 
 export function clusterSpace (
     paths: FeatureCollection<LineString>,
@@ -19,11 +20,13 @@ export function clusterSpace (
 
     // TODO throw if there are paths outside zone
 
-    // TODO mark zone with weight
+    // mark zone with weight
+    const newZone: Feature<Polygon, {weight: number}> = clone(zone);
+    newZone.properties.weight = paths.features.length;
 
     // end recursion if target depth has been reached
     if (currentDepth === targetDepth)
-        return featureCollection([zone as Feature<Polygon, {weight: number}>]);
+        return featureCollection([newZone]);
 
 
     const subZones = splitPolygon(zone).features;
