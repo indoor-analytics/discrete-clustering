@@ -2,6 +2,7 @@ import {getPaths} from "../features/paths";
 import {featureCollection} from "@turf/helpers";
 import {clusterSpace} from "../../src/recursive/clusterSpace";
 import {printCollectionToFile} from "../utils/printCollectionToFile";
+import area from "@turf/area";
 
 describe('Cluster space', () => {
     const paths = featureCollection(getPaths());
@@ -22,10 +23,10 @@ describe('Cluster space', () => {
     });
 
 
-    it ('should return more cells with increased depth', () => {
+    it ('should return smaller cells with increased depth', () => {
         const cells1 = clusterSpace(paths, 3);
         const cells2 = clusterSpace(paths, 4);
-        expect(cells2.features.length).toEqual(4 * cells1.features.length);
+        expect(area(cells1.features[0])).toBeCloseTo(4 * area(cells2.features[0]));
         printCollectionToFile(cells1, 'recursiveCells.json');
     })
 });
