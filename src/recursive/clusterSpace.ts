@@ -2,7 +2,7 @@ import { Feature, featureCollection, FeatureCollection, LineString, Polygon } fr
 import { splitPolygon } from "./splitPolygon";
 
 export function clusterSpace (
-    _paths: FeatureCollection<LineString>,
+    paths: FeatureCollection<LineString>,
     zone: Feature<Polygon>,
     targetDepth: number,
     currentDepth = 0
@@ -12,8 +12,12 @@ export function clusterSpace (
     if (currentDepth > targetDepth)
         throw new RangeError('Current depth cannot be superior to target depth.');
 
+    // if there are no input paths, return empty collection
+    if (paths.features.length === 0)
+        return featureCollection([]);
+
+
     // TODO throw if there are paths outside zone
-    // TODO if there are no paths, return empty collection
 
     // TODO mark zone with weight
 
