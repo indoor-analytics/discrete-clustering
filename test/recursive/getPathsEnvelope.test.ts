@@ -13,5 +13,14 @@ describe('getPathsEnvelope', () => {
         const line1 = lineString([envelope.geometry.coordinates[0][0], envelope.geometry.coordinates[0][1]]);
         const line2 = lineString([envelope.geometry.coordinates[0][1], envelope.geometry.coordinates[0][2]]);
         expect(lineDistance(line1)).not.toEqual(lineDistance(line2));
-    })
+    });
+
+    it ('should return a square envelope', () => {
+        const envelope = getPathsEnvelope(featureCollection(getPaths()), Shape.Square);
+        expect(area(envelope)).not.toEqual(0);
+        expect(envelope.geometry.coordinates[0].length).toEqual(5);
+        const line1 = lineString([envelope.geometry.coordinates[0][0], envelope.geometry.coordinates[0][1]]);
+        const line2 = lineString([envelope.geometry.coordinates[0][1], envelope.geometry.coordinates[0][2]]);
+        expect(lineDistance(line1)).toEqual(lineDistance(line2));
+    });
 });
