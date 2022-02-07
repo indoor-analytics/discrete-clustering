@@ -4,11 +4,13 @@ import clone from "@turf/clone";
 import envelope from "@turf/envelope";
 import lineIntersect from "@turf/line-intersect";
 import {colorCells} from "../zones/colorCells";
+import {Shape} from "../utils/Shape";
 
 export function clusterSpace (
     paths: FeatureCollection<LineString>,
     targetDepth: number,
-    shouldColorCells = true
+    shouldColorCells = true,
+    _shape: Shape = Shape.Fit
 ): FeatureCollection<Polygon, {weight: number}> {
     if (targetDepth < 1)
         throw new RangeError('Target depth must be superior to 0.');

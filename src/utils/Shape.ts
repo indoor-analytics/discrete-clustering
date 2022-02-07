@@ -4,5 +4,6 @@
 export enum Shape {
     Square,
     Hexagon,
-    Triangle
+    Triangle,
+    Fit
 }
