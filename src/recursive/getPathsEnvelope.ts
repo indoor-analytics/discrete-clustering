@@ -1,7 +1,10 @@
 import {Feature, FeatureCollection, LineString, Polygon} from "@turf/helpers";
+import {Shape} from "../utils/Shape";
+import envelope from "@turf/envelope";
 
 export function getPathsEnvelope(
-    _paths: FeatureCollection<LineString>
+    paths: FeatureCollection<LineString>,
+    _shape: Shape
 ): Feature<Polygon> {
-    throw new Error('unimplemented');
+    return envelope(paths);
 }
