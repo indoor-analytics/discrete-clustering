@@ -34,4 +34,9 @@ describe('Cluster space', () => {
         const cells = clusterSpace(paths, 5);
         expect(cells.features[0].properties).toHaveProperty('fill-opacity');
     });
+
+    it ('should return cells without color', () => {
+        const cells = clusterSpace(paths, 5, false);
+        expect(cells.features[0].properties).not.toHaveProperty('fill-opacity');
+    });
 });
