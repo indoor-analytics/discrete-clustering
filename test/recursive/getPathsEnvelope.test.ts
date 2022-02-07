@@ -21,6 +21,6 @@ describe('getPathsEnvelope', () => {
         expect(envelope.geometry.coordinates[0].length).toEqual(5);
         const line1 = lineString([envelope.geometry.coordinates[0][0], envelope.geometry.coordinates[0][1]]);
         const line2 = lineString([envelope.geometry.coordinates[0][1], envelope.geometry.coordinates[0][2]]);
-        expect(lineDistance(line1)).toEqual(lineDistance(line2));
+        expect(lineDistance(line1)).toBeCloseTo(lineDistance(line2));
     });
 });
