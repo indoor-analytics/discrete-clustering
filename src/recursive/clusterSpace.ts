@@ -1,23 +1,23 @@
 import { Feature, featureCollection, FeatureCollection, LineString, Polygon } from "@turf/helpers";
 import { splitPolygon } from "./splitPolygon";
 import clone from "@turf/clone";
-import envelope from "@turf/envelope";
 import lineIntersect from "@turf/line-intersect";
 import {colorCells} from "../zones/colorCells";
 import {Shape} from "../utils/Shape";
+import {getPathsEnvelope} from "./getPathsEnvelope";
 
 export function clusterSpace (
     paths: FeatureCollection<LineString>,
     targetDepth: number,
     shouldColorCells = true,
-    _shape: Shape = Shape.Fit
+    shape: Shape = Shape.Fit
 ): FeatureCollection<Polygon, {weight: number}> {
     if (targetDepth < 1)
         throw new RangeError('Target depth must be superior to 0.');
 
     // TODO throw if there are paths outside zone
 
-    const markedCells = _computeZones(paths, envelope(paths), targetDepth);
+    const markedCells = _computeZones(paths, getPathsEnvelope(paths, shape), targetDepth);
     return shouldColorCells
         ? colorCells(markedCells as FeatureCollection<Polygon, {weight: number}>)
         : markedCells;
