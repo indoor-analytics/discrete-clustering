@@ -3,6 +3,8 @@ import {featureCollection} from "@turf/helpers";
 import {clusterSpace} from "../../src/recursive/clusterSpace";
 import {printCollectionToFile} from "../utils/printCollectionToFile";
 import area from "@turf/area";
+import {Shape} from "../../src";
+import distance from "@turf/distance";
 
 describe('Cluster space', () => {
     const paths = featureCollection(getPaths());
@@ -38,5 +40,14 @@ describe('Cluster space', () => {
     it ('should return cells without color', () => {
         const cells = clusterSpace(paths, 5, false);
         expect(cells.features[0].properties).not.toHaveProperty('fill-opacity');
+    });
+
+
+    it ('should return square cells', () => {
+        const cells = clusterSpace(paths, 5, true, Shape.Square);
+        const cell = cells.features[0];
+        const d1 = distance(cell.geometry.coordinates[0][0], cell.geometry.coordinates[0][1]);
+        const d2 = distance(cell.geometry.coordinates[0][1], cell.geometry.coordinates[0][2]);
+        expect(d1).toBeCloseTo(d2);
     });
 });
