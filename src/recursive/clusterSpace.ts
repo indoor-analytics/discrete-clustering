@@ -2,6 +2,7 @@ import { Feature, featureCollection, FeatureCollection, LineString, Polygon } fr
 import { splitPolygon } from "./splitPolygon";
 import clone from "@turf/clone";
 import envelope from "@turf/envelope";
+import lineIntersect from "@turf/line-intersect";
 
 export function clusterSpace (
     paths: FeatureCollection<LineString>,
@@ -38,7 +39,7 @@ function _computeZones(
     const returnCells: Feature<Polygon, {weight: number}>[] = [];
 
     for (const subZone of subZones) {
-        const subZonePaths: FeatureCollection<LineString> = paths;   // TODO get subZone path segments
+        const subZonePaths: FeatureCollection<LineString> = featureCollection(paths.features.filter(path => lineIntersect(path, subZone).features.length !== 0));
         returnCells.push(
             ..._computeZones(
                 subZonePaths,
