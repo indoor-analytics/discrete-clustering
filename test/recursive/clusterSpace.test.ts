@@ -29,4 +29,9 @@ describe('Cluster space', () => {
         expect(area(cells1.features[0])).toBeCloseTo(4 * area(cells2.features[0]));
         printCollectionToFile(cells1, 'recursiveCells.json');
     })
+
+    it ('should return colored cells by default', () => {
+        const cells = clusterSpace(paths, 5);
+        expect(cells.features[0].properties).toHaveProperty('fill-opacity');
+    });
 });
