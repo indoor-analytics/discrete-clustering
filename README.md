@@ -24,7 +24,7 @@ npm i --save @indoor-analytics/discrete-clustering
 
 Import methods in your code:
 ```javascript
-import {clusterPaths, getClusteredGraph, getClusteredPath, Shape} from '@indoor-analytics/discrete-clustering';
+import {clusterPaths, getClusteredPath, Shape} from '@indoor-analytics/discrete-clustering';
 ```
 
 ## Discretization
@@ -34,4 +34,4 @@ Space can be discretized with different shapes:
 * triangle
 * hexagon
 
-Size of such shapes can be modified by playing with the `granularity` parameter of `clusterPaths`/`getClusteredGraph` methods.
+Size of such shapes can be modified by playing with the `granularity` parameter of the `clusterPaths` method.
