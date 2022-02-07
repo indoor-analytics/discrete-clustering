@@ -24,10 +24,23 @@ npm i --save @indoor-analytics/discrete-clustering
 
 Import methods in your code:
 ```javascript
-import {clusterPaths, getClusteredPath, Shape} from '@indoor-analytics/discrete-clustering';
+import {clusterPaths, convertPolygonsToGraph, getClusteredPath, Shape} from '@indoor-analytics/discrete-clustering';
 ```
 
-## Discretization
+### Methods
+
+```typescript
+// 1. Convert paths to cells
+function clusterPaths( paths: Feature<LineString>[], granularity: number, shape?: Shape ): FeatureCollection;
+
+// 2. Convert cells to graph
+function convertPolygonsToGraph( cells: FeatureCollection<Polygon, {weight: number}> ): Graph;
+
+// 3. Extract average path from graph
+function getClusteredPath( graph: Graph, start: Position, end: Position ): Feature<LineString>; 
+```
+
+### Discretization shape
 
 Space can be discretized with different shapes:
 * square
