@@ -43,7 +43,34 @@ describe ('Split polygon', () => {
           expect(split).toThrow(new Error('Cannot split this shape.'));
     });
 
-    it ('should split a triangle in two identical triangles', () => {
+    it ('should split a triangle in two identical triangles (1)', () => {
+      const triangle = polygon([
+        [
+          [
+            2.2806930541992188,
+            50.76947080994697
+          ],
+          [
+            2.294125556945801,
+            50.777748226396255
+          ],
+          [
+            2.2806930541992188,
+            50.777748226396255
+          ],
+          [
+            2.2806930541992188,
+            50.76947080994697
+          ]
+        ]
+      ]);
+      const triangles = splitPolygon(triangle);
+      expect(triangles.features.length).toEqual(2);
+      expect(area(triangles.features[0])).not.toEqual(0);
+      expect(area(triangles.features[1])).not.toEqual(0);
+    });
+
+    it ('should split a triangle in two identical triangles (2)', () => {
       const triangle = polygon([
         [
           [
@@ -60,6 +87,60 @@ describe ('Split polygon', () => {
           ],
           [
             2.2806930541992188,
+            50.76947080994697
+          ]
+        ]
+      ]);
+      const triangles = splitPolygon(triangle);
+      expect(triangles.features.length).toEqual(2);
+      expect(area(triangles.features[0])).not.toEqual(0);
+      expect(area(triangles.features[1])).not.toEqual(0);
+    });
+
+    it ('should split a triangle in two identical triangles (3)', () => {
+      const triangle = polygon([
+        [
+          [
+            2.2806930541992188,
+            50.76947080994697
+          ],
+          [
+            2.294125556945801,
+            50.76947080994697
+          ],
+          [
+            2.294125556945801,
+            50.777748226396255
+          ],
+          [
+            2.2806930541992188,
+            50.76947080994697
+          ]
+        ]
+      ]);
+      const triangles = splitPolygon(triangle);
+      expect(triangles.features.length).toEqual(2);
+      expect(area(triangles.features[0])).not.toEqual(0);
+      expect(area(triangles.features[1])).not.toEqual(0);
+    });
+
+    it ('should split a triangle in two identical triangles (4)', () => {
+      const triangle = polygon([
+        [
+          [
+            2.294125556945801,
+            50.76947080994697
+          ],
+          [
+            2.294125556945801,
+            50.777748226396255
+          ],
+          [
+            2.2806930541992188,
+            50.777748226396255
+          ],
+          [
+            2.294125556945801,
             50.76947080994697
           ]
         ]
