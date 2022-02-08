@@ -19,7 +19,7 @@ export function clusterSpace (
 
     const markedCells = _computeZones(paths, getPathsEnvelope(paths, shape), targetDepth);
     return shouldColorCells
-        ? colorCells(markedCells as FeatureCollection<Polygon, {weight: number}>)
+        ? colorCells(markedCells)
         : markedCells;
 }
 

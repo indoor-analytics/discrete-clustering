@@ -1,4 +1,4 @@
-import {Feature, Polygon, LineString, FeatureCollection, featureCollection} from "@turf/helpers";
+import {Feature, LineString, FeatureCollection, featureCollection, Polygon} from "@turf/helpers";
 import { getCellsFromArea } from "./getCellsFromArea";
 import { markCellsWithPaths } from "./markCellsWithPaths";
 import {colorCells} from "./colorCells";
@@ -22,12 +22,12 @@ export function clusterPaths(
     granularity: number,
     shape = Shape.Square,
     shouldColorCells = true
-): FeatureCollection {
+): FeatureCollection<Polygon, {weight: number}> {
     const testZone = envelope(featureCollection(paths));
     const zoneCells = getCellsFromArea(testZone, granularity, shape);
     const markedCells = markCellsWithPaths(zoneCells, paths);
 
-    return shouldColorCells 
-        ? colorCells(markedCells as FeatureCollection<Polygon, {weight: number}>)
+    return shouldColorCells
+        ? colorCells(markedCells)
         : markedCells;
 }

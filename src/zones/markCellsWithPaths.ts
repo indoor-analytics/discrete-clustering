@@ -16,7 +16,7 @@ import lineIntersect from "@turf/line-intersect";
 export function markCellsWithPaths(
     cells: FeatureCollection<Polygon>,
     paths: Feature<LineString>[]
-): FeatureCollection {
+): FeatureCollection<Polygon, {weight: number}> {
     if (cells.features.length === 0)
         throw new RangeError('Cells collection must not be empty.');
     if (paths.length === 0)

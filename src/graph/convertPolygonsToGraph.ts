@@ -1,7 +1,8 @@
-import {Feature, featureCollection, FeatureCollection, Polygon} from "@turf/helpers";
+import {Feature, FeatureCollection, Polygon} from "@turf/helpers";
 import centroid from "@turf/centroid";
 import Graph from 'graphology';
 import distance from "@turf/distance";
+import clone from "@turf/clone";
 
 /**
  * Converts a set of weighted cells to a graph.
@@ -15,8 +16,7 @@ export function convertPolygonsToGraph(
     cells: FeatureCollection<Polygon, {weight: number}>
 ): Graph {
     const graph = new Graph();
-    const cellsCopy: FeatureCollection<Polygon, {weight: number, nodeId: string}> =
-        featureCollection(cells.features) as FeatureCollection<Polygon, {weight: number, nodeId: string}>;
+    const cellsCopy: FeatureCollection<Polygon, {weight: number, nodeId: string}> = clone(cells);
 
     // adding a node for each polygon
     for (const cell of cellsCopy.features) {

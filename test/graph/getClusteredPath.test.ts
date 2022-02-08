@@ -1,7 +1,6 @@
 import {clusterPaths, convertPolygonsToGraph, Shape} from "../../src";
 import {getPaths, getReferencePath} from "../features/paths";
 import {getClusteredPath} from "../../src";
-import {FeatureCollection, Polygon} from "@turf/helpers";
 
 describe('getClusteredPath', () => {
     const referencePath = getReferencePath();
@@ -9,7 +8,7 @@ describe('getClusteredPath', () => {
     it ('should return a path for all shapes', () => {
         for (const shape of [Shape.Square, Shape.Hexagon, Shape.Triangle]) {
             const cells = clusterPaths(getPaths(), 60, shape);
-            const testGraph = convertPolygonsToGraph(cells as FeatureCollection<Polygon, {weight: number}>);
+            const testGraph = convertPolygonsToGraph(cells);
 
             const path = getClusteredPath(
                 testGraph,
