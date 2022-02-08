@@ -40,7 +40,7 @@ function _computeZones(
 
     // end recursion if target depth has been reached
     if (currentDepth === targetDepth)
-        return featureCollection([newZone as Feature<Polygon, {weight: number}>]);
+        return featureCollection([newZone]);
 
     const subZones = splitPolygon(zone).features;
     const returnCells: Feature<Polygon, {weight: number}>[] = [];
