@@ -61,7 +61,7 @@ export function splitPolygon(
         }
 
         else if (d3 > d1 && d3 > d2) {
-            const middle = midpoint(coordinates[1], coordinates[2]);
+            const middle = midpoint(coordinates[2], coordinates[3]);
             subZones.push(
                 polygon([
                     [ coordinates[2], middle.geometry.coordinates, coordinates[1], coordinates[2] ]
