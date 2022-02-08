@@ -1,4 +1,5 @@
 import { polygon } from "@turf/helpers";
+import area from "@turf/area";
 import { splitPolygon } from "../../src/recursive/splitPolygon";
 
 describe ('Split polygon', () => {
@@ -40,5 +41,31 @@ describe ('Split polygon', () => {
         
           const split = () => splitPolygon(hexagon);
           expect(split).toThrow(new Error('Cannot split this shape.'));
+    });
+
+    it ('should split a triangle in two identical triangles', () => {
+      const triangle = polygon([
+        [
+          [
+            2.2806930541992188,
+            50.76947080994697
+          ],
+          [
+            2.294125556945801,
+            50.76947080994697
+          ],
+          [
+            2.2806930541992188,
+            50.777748226396255
+          ],
+          [
+            2.2806930541992188,
+            50.76947080994697
+          ]
+        ]
+      ]);
+      const triangles = splitPolygon(triangle);
+      expect(triangles.features.length).toEqual(2);
+      expect(area(triangles.features[0])).toBeCloseTo(area(triangles.features[1]));
     });
 });
