@@ -31,6 +31,14 @@ import {clusterPaths, convertPolygonsToGraph, getClusteredPath, Shape} from '@in
 
 ```typescript
 // 1. Convert paths to cells
+// 1.1 Recursive method (faster thus recommanded)
+function clusterSpace ( 
+    paths: FeatureCollection<LineString>, 
+    targetDepth: number, 
+    shouldColorCells = true,
+    shape: Shape = Shape.Fit
+): FeatureCollection<Polygon, {weight: number}> 
+// 1.2 Iterative method (slower)
 function clusterPaths( paths: Feature<LineString>[], granularity: number, shape?: Shape ): FeatureCollection;
 
 // 2. Convert cells to graph
