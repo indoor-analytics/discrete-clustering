@@ -32,4 +32,10 @@ describe('getPathsEnvelope', () => {
         const line2 = lineString([envelope.geometry.coordinates[0][1], envelope.geometry.coordinates[0][2]]);
         expect(lineDistance(line1)).toBeCloseTo(lineDistance(line2));
     });
+
+    it ('should return a triangle envelope', () => {
+        const envelope = getPathsEnvelope(featureCollection(getPaths()), Shape.Triangle);
+        expect(area(envelope)).not.toEqual(0);
+        expect(envelope.geometry.coordinates[0].length).toEqual(4);
+    });
 });
