@@ -1,4 +1,4 @@
-import {Feature, FeatureCollection, LineString, Polygon} from "@turf/helpers";
+import {Feature, FeatureCollection, LineString, polygon, Polygon} from "@turf/helpers";
 import {Shape} from "../utils/Shape";
 import envelope from "@turf/envelope";
 import centroid from "@turf/centroid";
@@ -6,6 +6,8 @@ import distance from "@turf/distance";
 import bbox from "@turf/bbox";
 import circle from "@turf/circle";
 import bboxPolygon from "@turf/bbox-polygon";
+import destination from "@turf/destination";
+import bearing from "@turf/bearing";
 
 export function getPathsEnvelope(
     paths: FeatureCollection<LineString>,
@@ -33,13 +35,18 @@ export function getPathsEnvelope(
             return square;
 
         // We'll use square to build a triangle containing all paths
-        const d1 = distance(square.geometry.coordinates[0][0], square.geometry.coordinates[0][1]);
-        const d2 = distance(square.geometry.coordinates[0][0], square.geometry.coordinates[0][2]);
+        const coordinates = square.geometry.coordinates[0];
+        const d1 = distance(coordinates[0], coordinates[1]);
+        const d2 = distance(coordinates[0], coordinates[3]);
 
-        // TODO create point by mirroring p0 over p1 (so that d(p0,n0) == 2*d1)
-        // TODO create point by mirroring p0 over p2 (so that d(p0,n1) == 2*d2)
+        const newPosition0 = destination(coordinates[0], 2*d1, bearing(coordinates[0], coordinates[1])).geometry.coordinates;
+        const newPosition1 = destination(coordinates[0], 2*d2, bearing(coordinates[0], coordinates[3])).geometry.coordinates;
 
-        // TODO return triangle
+        return polygon([
+            [
+                coordinates[0], newPosition0, newPosition1, coordinates[0] 
+            ]
+        ]);
     }
 
     else {
