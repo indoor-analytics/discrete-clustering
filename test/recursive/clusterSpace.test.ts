@@ -50,4 +50,11 @@ describe('Cluster space', () => {
         const d2 = distance(cell.geometry.coordinates[0][1], cell.geometry.coordinates[0][2]);
         expect(d1).toBeCloseTo(d2);
     });
+
+    it ('should return triangular cells', () => {
+        const cells = clusterSpace(paths, 5, true, Shape.Triangle);
+        const cell = cells.features[0];
+        expect(cell.geometry.coordinates[0].length).toEqual(4);
+        printCollectionToFile(cells, 'triangularCells.json');
+    });
 });
