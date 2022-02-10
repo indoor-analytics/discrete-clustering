@@ -44,12 +44,12 @@ export function getPathsEnvelope(
 
         return polygon([
             [
-                coordinates[0], newPosition0, newPosition1, coordinates[0] 
+                coordinates[0], newPosition0, newPosition1, coordinates[0]
             ]
         ]);
     }
 
     else {
-        throw new Error('unimplemented');
+        throw new Error('This shape is not supported by this method.');
     }
 }
