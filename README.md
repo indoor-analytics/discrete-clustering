@@ -29,6 +29,31 @@ import {clusterPaths, convertPolygonsToGraph, getClusteredPathFromGraph, Shape} 
 
 ### Methods
 
+##### Convenience method (recommended)
+
+`getClusteredPath` calls all needed package methods to directly convert input paths into discrete-clustered output path.
+
+```typescript
+function getClusteredPath (
+    paths: FeatureCollection<LineString>,
+    startPosition: Position,
+    endPosition: Position,
+    clusteringSettings: Partial<ClusteringSettings> = {}
+): Feature<LineString>
+```
+
+You can tune clustering with some options:
+
+Name | Default value | Description
+------------ | ------------- | -------------
+targetDepth | `5` | Number of iterations wanted (the bigger, the smaller the discretization)
+shape | `Shape.Triangle` | Shape used to discretize space
+
+##### Manual clustering
+
+If you need to tweak some settings or want to use a custom implementation, you can do the clustering process manually by calling
+all methods yourself.
+
 ```typescript
 // 1. Convert paths to cells
 // 1.1 Recursive method (faster thus recommanded)
