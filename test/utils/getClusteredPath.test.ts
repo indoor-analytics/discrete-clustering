@@ -23,4 +23,9 @@ describe('getClusteredPath', () => {
         const path = getClusteredPath(paths, startPos, endPos, {shape: Shape.Fit});
         expect(path.geometry.coordinates.length).not.toEqual(0);
     });
+
+    it ('should throw with hexagon shape', () => {
+        const getPath = () => getClusteredPath(paths, startPos, endPos, {shape: Shape.Hexagon});
+        expect(getPath).toThrow(new Error('This shape is not supported by this method.'));
+    });
 });
