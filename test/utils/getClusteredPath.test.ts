@@ -18,4 +18,9 @@ describe('getClusteredPath', () => {
         const path = getClusteredPath(paths, startPos, endPos, {shape: Shape.Triangle});
         expect(path.geometry.coordinates.length).not.toEqual(0);
     });
+
+    it ('should return a path with fit shape', () => {
+        const path = getClusteredPath(paths, startPos, endPos, {shape: Shape.Fit});
+        expect(path.geometry.coordinates.length).not.toEqual(0);
+    });
 });
