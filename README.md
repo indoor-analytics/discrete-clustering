@@ -39,7 +39,7 @@ function clusterSpace (
     shape: Shape = Shape.Fit
 ): FeatureCollection<Polygon, {weight: number}>
 // 1.2 Iterative method (slower)
-function clusterPaths( paths: Feature<LineString>[], granularity: number, shape?: Shape ): FeatureCollection;
+function clusterPaths( paths: Feature<LineString>[], granularity: number, shape?: Shape ): FeatureCollection<Polygon, {weight: number}>;
 
 // 2. Convert cells to graph
 function convertPolygonsToGraph( cells: FeatureCollection<Polygon, {weight: number}> ): Graph;
