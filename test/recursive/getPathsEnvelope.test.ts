@@ -11,6 +11,10 @@ import booleanPointOnLine from "@turf/boolean-point-on-line";
 describe('getPathsEnvelope', () => {
     const paths = featureCollection(getPaths());
 
+    /**
+     * Checks if a set of paths is encompassed inside a polygon.
+     * Positions on polygon perimeter are considered inside it.
+     */
     function checkEnvelope(envelope: Feature<Polygon>, iPaths: FeatureCollection<LineString> = paths) {
         const envelopePerimeter = lineString(envelope.geometry.coordinates[0]);
 

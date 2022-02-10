@@ -15,8 +15,6 @@ export function clusterSpace (
     if (targetDepth < 1)
         throw new RangeError('Target depth must be superior to 0.');
 
-    // TODO throw if there are paths outside zone
-
     const markedCells = _computeZones(paths, getPathsEnvelope(paths, shape), targetDepth);
     return shouldColorCells
         ? colorCells(markedCells)
