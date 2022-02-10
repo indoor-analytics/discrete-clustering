@@ -28,4 +28,10 @@ describe('getClusteredPath', () => {
         const getPath = () => getClusteredPath(paths, startPos, endPos, {shape: Shape.Hexagon});
         expect(getPath).toThrow(new Error('This shape is not supported by this method.'));
     });
+
+    it ('should produce more positions with increased depth', () => {
+        const path1 = getClusteredPath(paths, startPos, endPos, {targetDepth: 5});
+        const path2 = getClusteredPath(paths, startPos, endPos, {targetDepth: 6});
+        expect(path1.geometry.coordinates.length).toBeLessThan(path2.geometry.coordinates.length)
+    });
 });
