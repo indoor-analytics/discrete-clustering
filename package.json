@@ -25,6 +25,7 @@
     "@size-limit/preset-small-lib": "^5.0.4",
     "@size-limit/time": "^6.0.3",
     "@turf/area": "^6.5.0",
+    "@turf/boolean-point-on-line": "^6.5.0",
     "@turf/boolean-within": "^6.5.0",
     "@turf/line-distance": "^4.7.3",
     "@types/jest": "^26.0.21",
