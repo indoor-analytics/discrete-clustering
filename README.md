@@ -8,7 +8,7 @@ Clusters a bunch of paths by discretizing space with a given shape.
 
 | ![Paths to cluster](img/graph_extraction.png) | ![Clustering result](img/clustered_path.png) |
 |:--:|:--:|
-| *Corresponding graph* | *`getClusteredPath` result* |
+| *Corresponding graph* | *`getClusteredPathFromGraph` result* |
 
 ## How to use
 
@@ -24,7 +24,7 @@ npm i --save @indoor-analytics/discrete-clustering
 
 Import methods in your code:
 ```javascript
-import {clusterPaths, convertPolygonsToGraph, getClusteredPath, Shape} from '@indoor-analytics/discrete-clustering';
+import {clusterPaths, convertPolygonsToGraph, getClusteredPathFromGraph, Shape} from '@indoor-analytics/discrete-clustering';
 ```
 
 ### Methods
@@ -32,12 +32,12 @@ import {clusterPaths, convertPolygonsToGraph, getClusteredPath, Shape} from '@in
 ```typescript
 // 1. Convert paths to cells
 // 1.1 Recursive method (faster thus recommanded)
-function clusterSpace ( 
-    paths: FeatureCollection<LineString>, 
-    targetDepth: number, 
+function clusterSpace (
+    paths: FeatureCollection<LineString>,
+    targetDepth: number,
     shouldColorCells = true,
     shape: Shape = Shape.Fit
-): FeatureCollection<Polygon, {weight: number}> 
+): FeatureCollection<Polygon, {weight: number}>
 // 1.2 Iterative method (slower)
 function clusterPaths( paths: Feature<LineString>[], granularity: number, shape?: Shape ): FeatureCollection;
 
@@ -45,7 +45,7 @@ function clusterPaths( paths: Feature<LineString>[], granularity: number, shape?
 function convertPolygonsToGraph( cells: FeatureCollection<Polygon, {weight: number}> ): Graph;
 
 // 3. Extract average path from graph
-function getClusteredPath( graph: Graph, start: Position, end: Position ): Feature<LineString>; 
+function getClusteredPathFromGraph( graph: Graph, start: Position, end: Position ): Feature<LineString>;
 ```
 
 ### Discretization shape

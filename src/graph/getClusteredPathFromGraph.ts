@@ -20,7 +20,7 @@ function _nodeToPosition(
  * @param end ending position (may not be a graph's edge)
  * @returns
  */
-export function getClusteredPath(
+export function getClusteredPathFromGraph(
     graph: Graph,
     start: Position,
     end: Position
