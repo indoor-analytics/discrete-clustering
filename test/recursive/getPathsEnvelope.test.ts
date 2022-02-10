@@ -1,18 +1,26 @@
 import {getPathsEnvelope} from "../../src/recursive/getPathsEnvelope";
-import {Feature, FeatureCollection, featureCollection, LineString, lineString, Polygon} from "@turf/helpers";
+import {Feature, FeatureCollection, featureCollection, LineString, lineString, point, Polygon} from "@turf/helpers";
 import {getPaths} from "../features/paths";
 import {Shape} from "../../src";
 import area from "@turf/area";
 import lineDistance = require("@turf/line-distance");
 import { printCollectionToFile } from '../utils/printCollectionToFile';
 import booleanWithin from '@turf/boolean-within';
+import booleanPointOnLine from "@turf/boolean-point-on-line";
 
 describe('getPathsEnvelope', () => {
     const paths = featureCollection(getPaths());
 
     function checkEnvelope(envelope: Feature<Polygon>, iPaths: FeatureCollection<LineString> = paths) {
+        const envelopePerimeter = lineString(envelope.geometry.coordinates[0]);
+
         for (const path of iPaths.features)
-            expect(booleanWithin(path, envelope)).toBeTruthy();
+            for (const coord of path.geometry.coordinates) {
+                const poi = point(coord);
+                expect(
+                    booleanWithin(poi, envelope) || booleanPointOnLine(coord, envelopePerimeter)
+                ).toBeTruthy();
+            }
     }
 
     it ('should return a rectangular envelope', () => {
