@@ -1,5 +1,5 @@
 import {getPathsEnvelope} from "../../src/recursive/getPathsEnvelope";
-import {Feature, featureCollection, lineString, Polygon} from "@turf/helpers";
+import {Feature, FeatureCollection, featureCollection, LineString, lineString, Polygon} from "@turf/helpers";
 import {getPaths} from "../features/paths";
 import {Shape} from "../../src";
 import area from "@turf/area";
@@ -10,8 +10,8 @@ import booleanWithin from '@turf/boolean-within';
 describe('getPathsEnvelope', () => {
     const paths = featureCollection(getPaths());
 
-    function checkEnvelope(envelope: Feature<Polygon>) {
-        for (const path of paths.features)
+    function checkEnvelope(envelope: Feature<Polygon>, iPaths: FeatureCollection<LineString> = paths) {
+        for (const path of iPaths.features)
             expect(booleanWithin(path, envelope)).toBeTruthy();
     }
 
@@ -36,13 +36,14 @@ describe('getPathsEnvelope', () => {
     });
 
     it ('should return a square envelope (2)', () => {
-        const envelope = getPathsEnvelope(featureCollection(getPaths('topRuns.json')), Shape.Square);
+        const paths = featureCollection(getPaths('topRuns.json'));
+        const envelope = getPathsEnvelope(paths, Shape.Square);
         expect(area(envelope)).not.toEqual(0);
         expect(envelope.geometry.coordinates[0].length).toEqual(5);
         const line1 = lineString([envelope.geometry.coordinates[0][0], envelope.geometry.coordinates[0][1]]);
         const line2 = lineString([envelope.geometry.coordinates[0][1], envelope.geometry.coordinates[0][2]]);
         expect(lineDistance(line1)).toBeCloseTo(lineDistance(line2));
-        checkEnvelope(envelope);
+        checkEnvelope(envelope, paths);
     });
 
     it ('should return a triangle envelope', () => {
