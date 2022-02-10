@@ -10,7 +10,7 @@ describe('getClusteredPath', () => {
     const endPos: Position = referencePath.geometry.coordinates[referencePath.geometry.coordinates.length-1];
 
     it ('should return a path with square shape', () => {
-        const path = getClusteredPath(paths, startPos, endPos, 5, Shape.Square);
+        const path = getClusteredPath(paths, startPos, endPos, {targetDepth: 5, shape: Shape.Square});
         expect(path.geometry.coordinates.length).not.toEqual(0);
     });
 });
