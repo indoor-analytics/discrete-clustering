@@ -8,7 +8,7 @@ Clusters a bunch of paths by discretizing space with a given shape.
 
 | ![Paths to cluster](img/graph_extraction.png) | ![Clustering result](img/clustered_path.png) |
 |:--:|:--:|
-| *Corresponding graph* | *`getClusteredPath` result* |
+| *Corresponding graph* | *`getClusteredPathFromGraph` result* |
 
 ## How to use
 
@@ -24,20 +24,53 @@ npm i --save @indoor-analytics/discrete-clustering
 
 Import methods in your code:
 ```javascript
-import {clusterPaths, convertPolygonsToGraph, getClusteredPath, Shape} from '@indoor-analytics/discrete-clustering';
+import {clusterPaths, convertPolygonsToGraph, getClusteredPathFromGraph, Shape} from '@indoor-analytics/discrete-clustering';
 ```
 
 ### Methods
 
+##### Convenience method (recommended)
+
+`getClusteredPath` calls all needed package methods to directly convert input paths into discrete-clustered output path.
+
+```typescript
+function getClusteredPath (
+    paths: FeatureCollection<LineString>,
+    startPosition: Position,
+    endPosition: Position,
+    clusteringSettings: Partial<ClusteringSettings> = {}
+): Feature<LineString>
+```
+
+You can tune clustering with some options:
+
+Name | Default value | Description
+------------ | ------------- | -------------
+targetDepth | `5` | Number of iterations wanted (the bigger, the smaller the discretization)
+shape | `Shape.Triangle` | Shape used to discretize space
+
+##### Manual clustering
+
+If you need to tweak some settings or want to use a custom implementation, you can do the clustering process manually by calling
+all methods yourself.
+
 ```typescript
 // 1. Convert paths to cells
-function clusterPaths( paths: Feature<LineString>[], granularity: number, shape?: Shape ): FeatureCollection;
+// 1.1 Recursive method (faster thus recommanded)
+function clusterSpace (
+    paths: FeatureCollection<LineString>,
+    targetDepth: number,
+    shouldColorCells = true,
+    shape: Shape = Shape.Fit
+): FeatureCollection<Polygon, {weight: number}>
+// 1.2 Iterative method (slower)
+function clusterPaths( paths: Feature<LineString>[], granularity: number, shape?: Shape ): FeatureCollection<Polygon, {weight: number}>;
 
 // 2. Convert cells to graph
 function convertPolygonsToGraph( cells: FeatureCollection<Polygon, {weight: number}> ): Graph;
 
 // 3. Extract average path from graph
-function getClusteredPath( graph: Graph, start: Position, end: Position ): Feature<LineString>; 
+function getClusteredPathFromGraph( graph: Graph, start: Position, end: Position ): Feature<LineString>;
 ```
 
 ### Discretization shape

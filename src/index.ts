@@ -1,9 +1,11 @@
 import { convertPolygonsToGraph } from "./graph/convertPolygonsToGraph";
-import { getClusteredPath } from "./graph/getClusteredPath";
+import { getClusteredPathFromGraph } from "./graph/getClusteredPathFromGraph";
+import { clusterSpace } from "./recursive/clusterSpace";
+import { getClusteredPath } from "./utils/getClusteredPath";
 import { Shape } from "./utils/Shape";
 import { clusterPaths } from "./zones/clusterPaths";
 
 /**
  * All methods exposed by the compiled library are exported here.
  */
-export {clusterPaths, convertPolygonsToGraph, getClusteredPath, Shape};
+export {clusterPaths, clusterSpace, convertPolygonsToGraph, getClusteredPath, getClusteredPathFromGraph, Shape};

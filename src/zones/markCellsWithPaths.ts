@@ -16,20 +16,20 @@ import lineIntersect from "@turf/line-intersect";
 export function markCellsWithPaths(
     cells: FeatureCollection<Polygon>,
     paths: Feature<LineString>[]
-): FeatureCollection {
+): FeatureCollection<Polygon, {weight: number}> {
     if (cells.features.length === 0)
         throw new RangeError('Cells collection must not be empty.');
     if (paths.length === 0)
         throw new RangeError('Paths array must not be empty.');
 
-    const localCells = clone(cells);
+    const localCells: FeatureCollection<Polygon, {weight: number}> = clone(cells);
 
     // increasing cells' weight if they intersect with a path
     for (const path of paths) {
         for (const cell of localCells.features) {
             if (lineIntersect(path, cell).features.length !== 0) {
                 if (cell.properties?.weight === undefined)
-                    (cell as Feature<Polygon, {weight: number}>).properties.weight = 1;
+                    cell.properties.weight = 1;
                 else
                     cell.properties.weight += 1;
             }
@@ -37,7 +37,7 @@ export function markCellsWithPaths(
     }
 
     // filter out cells that are not crossed by a path
-    return featureCollection(localCells.features.filter((cell: Feature<Polygon, {weight?: number}>) => {
+    return featureCollection(localCells.features.filter((cell) => {
         return cell.properties.weight !== undefined;
     }));
 }
