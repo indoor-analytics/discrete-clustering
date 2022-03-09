@@ -3,6 +3,7 @@ import {Shape} from "./Shape";
 import {clusterSpace} from "../recursive/clusterSpace";
 import {convertPolygonsToGraph} from "../graph/convertPolygonsToGraph";
 import {getClusteredPathFromGraph} from "../graph/getClusteredPathFromGraph";
+import {getEdgeNodesFromPaths} from "../graph/getEdgeNodesFromPaths";
 
 
 interface ClusteringSettings {
@@ -37,5 +38,6 @@ export function getClusteredPath (
     const settings: ClusteringSettings = {...defaultClusteringSettings, ...clusteringSettings};
     const cells = clusterSpace(paths, settings.targetDepth, true, clusteringSettings.shape);
     const graph = convertPolygonsToGraph(cells);
-    return getClusteredPathFromGraph(graph, startPosition, endPosition);
+    const positions = getEdgeNodesFromPaths(graph, paths);
+    return getClusteredPathFromGraph(graph, positions.start, positions.end);
 }
