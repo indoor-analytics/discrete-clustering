@@ -1,14 +1,7 @@
-import {Feature, lineString, LineString, Position} from "@turf/helpers";
+import {Feature, lineString, LineString} from "@turf/helpers";
 import Graph from "graphology";
 import dijkstra from 'graphology-shortest-path/dijkstra';
-import distance from "@turf/distance";
-
-
-function _nodeToPosition(
-    node: string
-): Position {
-    return node.split(',').map(c => +c);
-}
+import {nodeToPosition} from "../utils/nodeToPosition";
 
 
 /**
@@ -16,34 +9,20 @@ function _nodeToPosition(
  * graph; this will try and select edges that feature the biggest weight possible.
  *
  * @param graph weighted-edges graph
- * @param start starting position (may not be a graph's edge)
- * @param end ending position (may not be a graph's edge)
+ * @param startingNode starting position (may not be a graph's edge)
+ * @param endingNode ending position (may not be a graph's edge)
  * @returns
  */
 export function getClusteredPathFromGraph(
     graph: Graph,
-    start: Position,
-    end: Position
+    startingNode: string,
+    endingNode: string
 ): Feature<LineString> {
-    let startingNode = '';
-    let endingNode = '';
-    let startingDistance = Number.MAX_SAFE_INTEGER;
-    let endingDistance = Number.MAX_SAFE_INTEGER;
 
-    // looking for closest nodes to start/end positions
-    graph.forEachNode(node => {
-        const distanceToStart = distance(_nodeToPosition(node), start);
-        if (distanceToStart < startingDistance) {
-            startingNode = node;
-            startingDistance = distanceToStart;
-        }
-
-        const distanceToEnd = distance(_nodeToPosition(node), end);
-        if (distanceToEnd < endingDistance) {
-            endingNode = node;
-            endingDistance = distanceToEnd;
-        }
-    });
+    if (!graph.hasNode(startingNode))
+        throw new RangeError(`"${startingNode}" is not a graph node.`);
+    else if (!graph.hasNode(endingNode))
+        throw new RangeError(`"${endingNode}" is not a graph node.`);
 
     // cloning graph and reversing its weights
     const graphClone = new Graph().import(graph.export());
@@ -61,5 +40,5 @@ export function getClusteredPathFromGraph(
     if (!pathNodes)
         throw new RangeError('Path cannot be extracted from graph, try using a smaller granularity.');
 
-    return lineString(pathNodes.map(node => _nodeToPosition(node)));
+    return lineString(pathNodes.map(node => nodeToPosition(node)));
 }
