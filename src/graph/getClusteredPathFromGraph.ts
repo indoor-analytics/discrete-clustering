@@ -25,6 +25,11 @@ export function getClusteredPathFromGraph(
     endingNode: string
 ): Feature<LineString> {
 
+    if (!graph.hasNode(startingNode))
+        throw new RangeError(`"${startingNode}" is not a graph node.`);
+    else if (!graph.hasNode(endingNode))
+        throw new RangeError(`"${endingNode}" is not a graph node.`);
+
     // cloning graph and reversing its weights
     const graphClone = new Graph().import(graph.export());
     graphClone.forEachEdge(edge => {
