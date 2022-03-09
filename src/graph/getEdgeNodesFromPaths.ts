@@ -1,4 +1,3 @@
-import {EdgeEntry} from "graphology-types";
 import Graph from "graphology";
 import {FeatureCollection, LineString} from "@turf/helpers";
 
@@ -13,8 +12,8 @@ export function getEdgeNodesFromPaths(
     _graph: Graph,
     _paths: FeatureCollection<LineString>
 ): {
-    start: EdgeEntry,
-    end: EdgeEntry
+    start: string,
+    end: string
 } {
     throw new Error('not implemented');
 }
