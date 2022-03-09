@@ -1,13 +1,7 @@
-import {Feature, lineString, LineString, Position} from "@turf/helpers";
+import {Feature, lineString, LineString} from "@turf/helpers";
 import Graph from "graphology";
 import dijkstra from 'graphology-shortest-path/dijkstra';
-
-
-function _nodeToPosition(
-    node: string
-): Position {
-    return node.split(',').map(c => +c);
-}
+import {nodeToPosition} from "../utils/nodeToPosition";
 
 
 /**
@@ -46,5 +40,5 @@ export function getClusteredPathFromGraph(
     if (!pathNodes)
         throw new RangeError('Path cannot be extracted from graph, try using a smaller granularity.');
 
-    return lineString(pathNodes.map(node => _nodeToPosition(node)));
+    return lineString(pathNodes.map(node => nodeToPosition(node)));
 }

@@ -1,14 +1,8 @@
 import Graph from "graphology";
-import {featureCollection, FeatureCollection, LineString, point, Position} from "@turf/helpers";
+import {featureCollection, FeatureCollection, LineString, point} from "@turf/helpers";
 import distance from "@turf/distance";
 import centroid from "@turf/centroid";
-
-
-function _nodeToPosition(
-    node: string
-): Position {
-    return node.split(',').map(c => +c);
-}
+import {nodeToPosition} from "../utils/nodeToPosition";
 
 
 /**
@@ -45,13 +39,13 @@ export function getEdgeNodesFromPaths(
 
     // looking for closest nodes to start/end positions
     graph.forEachNode(node => {
-        const distanceToStart = distance(_nodeToPosition(node), startCentroid);
+        const distanceToStart = distance(nodeToPosition(node), startCentroid);
         if (distanceToStart < startingDistance) {
             startingNode = node;
             startingDistance = distanceToStart;
         }
 
-        const distanceToEnd = distance(_nodeToPosition(node), endCentroid);
+        const distanceToEnd = distance(nodeToPosition(node), endCentroid);
         if (distanceToEnd < endingDistance) {
             endingNode = node;
             endingDistance = distanceToEnd;
