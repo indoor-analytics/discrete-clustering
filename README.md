@@ -36,8 +36,6 @@ import {clusterPaths, convertPolygonsToGraph, getClusteredPathFromGraph, Shape} 
 ```typescript
 function getClusteredPath (
     paths: FeatureCollection<LineString>,
-    startPosition: Position,
-    endPosition: Position,
     clusteringSettings: Partial<ClusteringSettings> = {}
 ): Feature<LineString>
 ```
@@ -70,7 +68,7 @@ function clusterPaths( paths: Feature<LineString>[], granularity: number, shape?
 function convertPolygonsToGraph( cells: FeatureCollection<Polygon, {weight: number}> ): Graph;
 
 // 3. Extract average path from graph
-function getClusteredPathFromGraph( graph: Graph, start: Position, end: Position ): Feature<LineString>;
+function getClusteredPathFromGraph( graph: Graph, start: string, end: string ): Feature<LineString>;
 ```
 
 ### Discretization shape
