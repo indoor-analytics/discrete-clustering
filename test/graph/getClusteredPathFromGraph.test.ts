@@ -28,7 +28,7 @@ describe('getClusteredPathFromGraph', () => {
         const testGraph = convertPolygonsToGraph(cells);
         const positions = getEdgeNodesFromPaths(testGraph, featureCollection(paths));
         const getPath = () => getClusteredPathFromGraph(testGraph, 'hellothere', positions.end);
-        expect(getPath).toThrow(new RangeError('"hellothere" is not a graph edge.'));
+        expect(getPath).toThrow(new RangeError('"hellothere" is not a graph node.'));
     });
 
     it ('should throw with a non-existing ending node', () => {
@@ -36,6 +36,6 @@ describe('getClusteredPathFromGraph', () => {
         const testGraph = convertPolygonsToGraph(cells);
         const positions = getEdgeNodesFromPaths(testGraph, featureCollection(paths));
         const getPath = () => getClusteredPathFromGraph(testGraph, '56.254875963,3.14421442', positions.end);
-        expect(getPath).toThrow(new RangeError('"56.254875963,3.14421442" is not a graph edge.'));
+        expect(getPath).toThrow(new RangeError('"56.254875963,3.14421442" is not a graph node.'));
     });
 });
