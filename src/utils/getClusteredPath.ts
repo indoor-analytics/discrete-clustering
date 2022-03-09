@@ -1,4 +1,4 @@
-import {Feature, FeatureCollection, LineString, Position} from "@turf/helpers";
+import {Feature, FeatureCollection, LineString} from "@turf/helpers";
 import {Shape} from "./Shape";
 import {clusterSpace} from "../recursive/clusterSpace";
 import {convertPolygonsToGraph} from "../graph/convertPolygonsToGraph";
@@ -25,14 +25,10 @@ const defaultClusteringSettings: ClusteringSettings = {
  * (this is a convenience method that only calls this package's other methods)
  *
  * @param paths input paths to cluster
- * @param startPosition starting position (may not be a graph edge)
- * @param endPosition ending position (may not be a graph edge)
  * @param clusteringSettings optional settings to customize path generation
  */
 export function getClusteredPath (
     paths: FeatureCollection<LineString>,
-    startPosition: Position,
-    endPosition: Position,
     clusteringSettings: Partial<ClusteringSettings> = {}
 ): Feature<LineString> {
     const settings: ClusteringSettings = {...defaultClusteringSettings, ...clusteringSettings};
